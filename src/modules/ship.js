@@ -1,9 +1,9 @@
 "use strict";
 
-import { Gameboard } from "./gameboard";
+import { Gameboard } from "./gameboard.js";
 
 class Ship {
-  constructor(name, length, number, ships) {
+  constructor(name, length, number) {
     this.name = name;
     this.length = length;
     this.shipNumber = number;

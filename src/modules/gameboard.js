@@ -1,6 +1,6 @@
 "use strict";
 
-import { Ship } from "./ship";
+import { Ship } from "./ship.js";
 
 class Gameboard {
   constructor() {
@@ -76,7 +76,6 @@ class Gameboard {
   }
 
   attackShip(x, y) {
-    console.log(x, y);
     const currentItem = this.gameboard[x][y];
     const ship = this.ships.find((ship) => ship.shipNumber === currentItem);
     if (ship) {

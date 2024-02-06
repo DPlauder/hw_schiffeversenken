@@ -1,7 +1,7 @@
 import "./styles.scss";
-import { Gameboard } from "./modules/gameboard";
-import { Player } from "./modules/player";
-import { Ship } from "./modules/ship";
+import { Gameboard } from "./modules/gameboard.js";
+import { Player } from "./modules/player.js";
+import { Ship } from "./modules/ship.js";
 
 let gameboardPlayer = new Gameboard();
 let player = new Player("Marko");
@@ -18,7 +18,5 @@ const submarine = new Ship("submarine", 3, 2);
 const destroyer = new Ship("Destroyer", 2, 1);
 
 gameboardKI.placeShipsCPU();
-
-console.log(player.attackEnemy(3, 4));
 console.log(gameboardPlayer.gameboard);
 console.log(gameboardKI.gameboard);

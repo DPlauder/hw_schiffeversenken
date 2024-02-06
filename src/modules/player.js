@@ -1,6 +1,6 @@
 "use strict";
 
-import { Gameboard } from "./gameboard";
+import { Gameboard } from "./gameboard.js";
 
 class Player {
   constructor(name) {
