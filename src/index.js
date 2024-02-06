@@ -1,3 +1,5 @@
+// .js Endungen dazu wegen Webpack + use strict
+"use strict";
 import "./styles.scss";
 import { Gameboard } from "./modules/gameboard.js";
 import { Player } from "./modules/player.js";
@@ -24,4 +26,11 @@ gameboardPlayer.placeShipsCPU();
 console.log(gameboardPlayer.gameboard);
 console.log("helloKi", gameboardKI);
 
-player.attackEnemy(3, 4);
+//zum testen geadded
+let shot = 0;
+while (shot < 100) {
+  shot = prompt("gib nummer von 00 bis 99 ein oder beende mit 100");
+  let x = shot[0];
+  let y = shot[1];
+  player.attackEnemy(x, y);
+}

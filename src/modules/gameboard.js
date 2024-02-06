@@ -14,7 +14,7 @@ class Gameboard {
     //temporäre Variable für Erstellung + return
     const board = [];
     for (let i = 0; i < 10; i++) {
-      let innerArray = [];
+      const innerArray = [];
       for (let j = 0; j < 10; j++) {
         innerArray.push(0);
       }
@@ -84,7 +84,10 @@ class Gameboard {
     const ship = this.ships.find((ship) => ship.shipNumber === currentItem);
     if (ship) {
       ship.timesHit++;
-      this.gameboard[x][y] = "Treffer";
+      //setter Methode als Ersatz
+      //this.gameboard[x][y] = "Treffer";
+      this.setGameBoard(x, y, "Treffer");
+
       if (ship.timesHit === ship.shipLength()) {
         ship.isSunk = true;
         console.log(`Du hast ${ship.name} versenkt!`);
@@ -95,9 +98,18 @@ class Gameboard {
       }
     } else {
       console.log("Verfehlt!");
-      this.gameboard[x][y] = "X";
+      //setter Ersatz
+      //this.gameboard[x][y] = "X";
+      this.setGameBoard(x, y, "X");
+
       return "Verfehlt";
     }
+  }
+  setGameBoard(x, y, marker) {
+    this.gameboard[x][y] = marker;
+  }
+  getGameBoard() {
+    return this.gameboard;
   }
 }
 

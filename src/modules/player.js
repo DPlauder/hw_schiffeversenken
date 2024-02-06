@@ -1,18 +1,17 @@
 "use strict";
 
-import { Gameboard } from "./gameboard.js";
-
 class Player {
   //erweitert mit enemyGameboard
   constructor(name, enemyGameboard) {
     this.name = name;
-    //tausch neues leeres Board mit pram Board
+    //tausch neues leeres Board mit param Board
     this.enemyGameboard = enemyGameboard;
   }
 
   attackEnemy(x, y) {
-    console.log(this.enemyGameboard);
     const result = this.enemyGameboard.attackShip(x, y);
+    //rausgenommen da | passiert bereits in gameboard.attackShip
+    /* 
     if (result === "Treffer") {
       console.log("Treffer!");
     } else if (result === "X") {
@@ -21,8 +20,7 @@ class Player {
       console.log("Versenkt!");
     } else {
       console.log("Verfehlt!");
-    }
+    } */
   }
 }
-
 export { Player };
