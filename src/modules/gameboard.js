@@ -4,12 +4,14 @@ import { Ship } from "./ship.js";
 
 class Gameboard {
   constructor() {
+    //gameboard init mit Gameboard
     this.gameboard = this.createGameboard();
     this.ships = [];
     this.counter = 0;
   }
 
   createGameboard() {
+    //temporäre Variable für Erstellung + return
     const board = [];
     for (let i = 0; i < 10; i++) {
       let innerArray = [];

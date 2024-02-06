@@ -3,9 +3,11 @@ import { Gameboard } from "./modules/gameboard.js";
 import { Player } from "./modules/player.js";
 import { Ship } from "./modules/ship.js";
 
-let gameboardPlayer = new Gameboard();
-let player = new Player("Marko");
-let gameboardKI = new Gameboard();
+//let declarations schreibgeschützt
+const gameboardPlayer = new Gameboard();
+const gameboardKI = new Gameboard();
+
+const player = new Player("Marko", gameboardKI);
 
 gameboardKI.createShipsCPU();
 
@@ -20,6 +22,6 @@ gameboardPlayer.createShipsCPU();
 gameboardPlayer.placeShipsCPU();
 
 console.log(gameboardPlayer.gameboard);
-console.log(gameboardKI.gameboard);
+console.log("helloKi", gameboardKI);
 
 player.attackEnemy(3, 4);

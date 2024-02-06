@@ -3,9 +3,10 @@
 import { Gameboard } from "./gameboard.js";
 
 class Player {
-  constructor(name) {
+  //erweitert mit enemyGameboard
+  constructor(name, enemyGameboard) {
     this.name = name;
-    this.enemyGameboard = new Gameboard();
+    this.enemyGameboard = enemyGameboard;
   }
 
   attackEnemy(x, y) {
