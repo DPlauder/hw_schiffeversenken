@@ -22,4 +22,4 @@ gameboardPlayer.placeShipsCPU();
 console.log(gameboardPlayer.gameboard);
 console.log(gameboardKI.gameboard);
 
-//player.attackEnemy(3, 4);
+player.attackEnemy(3, 4);
