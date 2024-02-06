@@ -6,6 +6,7 @@ class Player {
   //erweitert mit enemyGameboard
   constructor(name, enemyGameboard) {
     this.name = name;
+    //tausch neues leeres Board mit pram Board
     this.enemyGameboard = enemyGameboard;
   }
 
