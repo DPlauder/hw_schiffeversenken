@@ -7,8 +7,6 @@ let gameboardPlayer = new Gameboard();
 let player = new Player("Marko");
 let gameboardKI = new Gameboard();
 
-gameboardPlayer.createGameboard();
-gameboardKI.createGameboard();
 gameboardKI.createShipsCPU();
 
 const carrier = new Ship("carrier", 5, 5);
@@ -18,5 +16,10 @@ const submarine = new Ship("submarine", 3, 2);
 const destroyer = new Ship("Destroyer", 2, 1);
 
 gameboardKI.placeShipsCPU();
+gameboardPlayer.createShipsCPU();
+gameboardPlayer.placeShipsCPU();
+
 console.log(gameboardPlayer.gameboard);
 console.log(gameboardKI.gameboard);
+
+//player.attackEnemy(3, 4);

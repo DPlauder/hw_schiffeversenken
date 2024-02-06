@@ -4,19 +4,21 @@ import { Ship } from "./ship.js";
 
 class Gameboard {
   constructor() {
-    this.gameboard = [];
+    this.gameboard = this.createGameboard();
     this.ships = [];
     this.counter = 0;
   }
 
   createGameboard() {
+    const board = [];
     for (let i = 0; i < 10; i++) {
       let innerArray = [];
-      this.gameboard.push(innerArray);
-      for (let z = 0; z < 10; z++) {
+      for (let j = 0; j < 10; j++) {
         innerArray.push(0);
       }
+      board.push(innerArray);
     }
+    return board;
   }
 
   placeShip(ship, x, y) {

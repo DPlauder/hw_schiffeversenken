@@ -9,6 +9,7 @@ class Player {
   }
 
   attackEnemy(x, y) {
+    console.log(this.enemyGameboard);
     const result = this.enemyGameboard.attackShip(x, y);
     if (result === "Treffer") {
       console.log("Treffer!");
