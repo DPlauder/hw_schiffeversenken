@@ -39,14 +39,19 @@ class Gameboard {
       this.ships.push(ship);
     }
   }
-
-  createShipsCPU() {
+  // angepasst damit CPU immer die selben Schiffe erstellt wie Player
+  createShipsCPU(ships) {
+    ships.forEach((ship) => {
+      this.ships.push(new Ship(ship.name, ship.length, ship.id));
+    });
+    /* 
     const carrier = new Ship("carrier", 5, 5, this.ships);
     const battleship = new Ship("battleship", 4, 4, this.ships);
     const cruiser = new Ship("cruiser", 3, 3, this.ships);
     const submarine = new Ship("submarine", 3, 2, this.ships);
     const destroyer = new Ship("Destroyer", 2, 1, this.ships);
-    this.ships.push(carrier, battleship, cruiser, submarine, destroyer);
+     */
+    //this.ships.push(carrier, battleship, cruiser, submarine, destroyer);
   }
 
   placeShipsCPU() {
@@ -105,6 +110,7 @@ class Gameboard {
       return "Verfehlt";
     }
   }
+  // setter + getter für Gameboardänderungen
   setGameBoard(x, y, marker) {
     this.gameboard[x][y] = marker;
   }

@@ -1,12 +1,10 @@
 "use strict";
 
-import { Gameboard } from "./gameboard.js";
-
 class Ship {
-  constructor(name, length, number) {
+  constructor(name, length, id) {
     this.name = name;
     this.length = length;
-    this.shipNumber = number;
+    this.id = id;
     this.isSunk = false;
     this.timesHit = 0;
     this.ships = this.ships;
