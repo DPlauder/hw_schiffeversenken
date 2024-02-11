@@ -10,7 +10,7 @@ class Player {
 
   attackEnemy(x, y) {
     const result = this.enemyGameboard.attackShip(x, y);
-    //rausgenommen da | passiert bereits in gameboard.attackShip
+    //rausgenommen | passiert bereits in gameboard.attackShip
     /* 
     if (result === "Treffer") {
       console.log("Treffer!");
