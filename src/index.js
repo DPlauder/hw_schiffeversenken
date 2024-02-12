@@ -10,25 +10,24 @@ const gameboardPlayer = new Gameboard();
 const gameboardKI = new Gameboard();
 
 const player = new Player("Marko", gameboardKI);
+
 // Testschiffe
 const ships = [];
-const carrier = new Ship("carrier", 5, 5);
-const battleship = new Ship("battleship", 4, 4);
-const cruiser = new Ship("cruiser", 3, 3);
-const submarine = new Ship("submarine", 3, 2);
-const destroyer = new Ship("Destroyer", 2, 1);
+const carrier = new Ship("carrier", 5, 5, "h");
+const battleship = new Ship("battleship", 4, 4, "h");
+const cruiser = new Ship("cruiser", 3, 3, "h");
+const submarine = new Ship("submarine", 3, 2, "h");
+const destroyer = new Ship("Destroyer", 2, 1, "h");
 
 ships.push(carrier, battleship, cruiser, submarine, destroyer);
 
-gameboardPlayer.createShipsCPU(ships);
-gameboardPlayer.placeShipsCPU();
+//gameboardPlayer.createShipsCPU(ships);
+//gameboardPlayer.placeShipsCPU();
 gameboardKI.createShipsCPU(ships);
 gameboardKI.placeShipsCPU();
 
-console.log(gameboardPlayer.gameboard);
 console.log("helloKi", gameboardKI);
 
-player.attackEnemy(3, 3);
 //zum testen geadded
 let shot = 0;
 while (shot < 100) {

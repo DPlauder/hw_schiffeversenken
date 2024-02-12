@@ -11,7 +11,7 @@ class Gameboard {
   }
 
   createGameboard() {
-    //temporäre Variable für Erstellung + return
+    //temporäres Array für Erstellung + return
     const board = [];
     for (let i = 0; i < 10; i++) {
       const innerArray = [];
@@ -30,10 +30,10 @@ class Gameboard {
     } else {
       for (let i = 0; i < ship.shipLength(); i++) {
         if ([x + i] > 9) {
-          this.gameboard[x - z][y] = ship.shipNumber;
+          this.gameboard[x - z][y] = ship.id;
           z++;
         } else {
-          this.gameboard[x + i][y] = ship.shipNumber;
+          this.gameboard[x + i][y] = ship.id;
         }
       }
       this.ships.push(ship);
@@ -42,7 +42,14 @@ class Gameboard {
   // angepasst damit CPU immer die selben Schiffe erstellt wie Player
   createShipsCPU(ships) {
     ships.forEach((ship) => {
-      this.ships.push(new Ship(ship.name, ship.length, ship.id));
+      this.ships.push(
+        new Ship(
+          ship.name,
+          ship.length,
+          ship.id,
+          Math.random() >= 0.5 ? "h" : "v"
+        )
+      );
     });
     /* 
     const carrier = new Ship("carrier", 5, 5, this.ships);
@@ -52,41 +59,54 @@ class Gameboard {
     const destroyer = new Ship("Destroyer", 2, 1, this.ships);
      */
     //this.ships.push(carrier, battleship, cruiser, submarine, destroyer);
+    //console.log(this.ships);
+  }
+  // Funktion ausgelagert von placeShips
+  setShipPosition(x, y, ship) {
+    const shiplength = ship.getShipLength();
+    for (let i = 0; i < shiplength; i++) {
+      if (ship.direction == "h") this.gameboard[x][y + i] = ship.id;
+      if (ship.direction == "v") this.gameboard[x + i][y] = ship.id;
+    }
   }
 
   placeShipsCPU() {
     for (const ship of this.ships) {
-      let x, y, z;
-
+      console.log(ship);
+      let x = 11;
+      let y = 11;
       do {
         x = Math.floor(Math.random() * 10);
         y = Math.floor(Math.random() * 10);
-        z = 1;
       } while (!this.isPlacementValid(x, y, ship));
-
+      this.setShipPosition(x, y, ship);
+      /* 
       for (let i = 0; i < ship.shipLength(); i++) {
         if (x + i > 9) {
-          this.gameboard[x - z][y] = ship.shipNumber;
+          this.gameboard[x - z][y] = ship.id;
           z++;
         } else {
-          this.gameboard[x + i][y] = ship.shipNumber;
+          this.gameboard[x + i][y] = ship.id;
         }
       }
+       */
     }
   }
-
+  // Regeln für Horizontale Schiffplatzierung dazu
+  // verallgemeinert damit Abfrage auch für Spielerplatzierung funktioniert
   isPlacementValid(x, y, ship) {
-    for (let i = 0; i < ship.shipLength(); i++) {
-      if (x + i > 9 || this.gameboard[x + i][y] !== 0) {
-        return false;
-      }
+    for (let i = 0; i < ship.getShipLength(); i++) {
+      if (ship.direction === "v")
+        if (this.gameboard[x + i][y] !== 0 || x + i > 9) return false;
+      if (ship.direction === "h")
+        if (this.gameboard[x][y + i] !== 0 || y + i > 9) return false;
+      return true;
     }
-    return true;
   }
 
   attackShip(x, y) {
     const currentItem = this.gameboard[x][y];
-    const ship = this.ships.find((ship) => ship.shipNumber === currentItem);
+    const ship = this.ships.find((ship) => ship.id === currentItem);
     if (ship) {
       ship.timesHit++;
       //setter Methode als Ersatz

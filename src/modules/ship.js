@@ -1,16 +1,18 @@
 "use strict";
 
 class Ship {
-  constructor(name, length, id) {
+  constructor(name, length, id, direction) {
     this.name = name;
     this.length = length;
     this.id = id;
+    // zugefügt um schiffe nicht nur vertikal spawnen zu lassen
+    this.direction = direction;
     this.isSunk = false;
     this.timesHit = 0;
     this.ships = this.ships;
   }
 
-  shipLength() {
+  getShipLength() {
     return this.length;
   }
 
