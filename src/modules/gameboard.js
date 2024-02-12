@@ -72,7 +72,6 @@ class Gameboard {
 
   placeShipsCPU() {
     for (const ship of this.ships) {
-      console.log(ship);
       let x = 0;
       let y = 0;
       do {

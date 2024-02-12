@@ -4,6 +4,7 @@ import "./styles.scss";
 import { Gameboard } from "./modules/gameboard.js";
 import { Player } from "./modules/player.js";
 import { Ship } from "./modules/ship.js";
+import { GameboardView } from "./view/gameboardview.js";
 
 //let declarations schreibgeschützt
 const gameboardPlayer = new Gameboard();
@@ -28,6 +29,9 @@ gameboardKI.placeShipsCPU();
 
 console.log("helloKi", gameboardKI);
 
+const newGameBoardView = new GameboardView();
+newGameBoardView.updateShips(gameboardKI.getGameBoard());
+/* 
 //zum testen geadded
 let shot = 0;
 while (shot < 100) {
@@ -36,3 +40,4 @@ while (shot < 100) {
   let y = shot[1];
   player.attackEnemy(x, y);
 }
+ */
