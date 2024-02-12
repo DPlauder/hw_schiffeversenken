@@ -21,8 +21,8 @@ const destroyer = new Ship("Destroyer", 2, 1, "h");
 
 ships.push(carrier, battleship, cruiser, submarine, destroyer);
 
-//gameboardPlayer.createShipsCPU(ships);
-//gameboardPlayer.placeShipsCPU();
+gameboardPlayer.createShipsCPU(ships);
+gameboardPlayer.placeShipsCPU();
 gameboardKI.createShipsCPU(ships);
 gameboardKI.placeShipsCPU();
 

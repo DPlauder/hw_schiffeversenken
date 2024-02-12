@@ -73,8 +73,8 @@ class Gameboard {
   placeShipsCPU() {
     for (const ship of this.ships) {
       console.log(ship);
-      let x = 11;
-      let y = 11;
+      let x = 0;
+      let y = 0;
       do {
         x = Math.floor(Math.random() * 10);
         y = Math.floor(Math.random() * 10);
@@ -96,12 +96,16 @@ class Gameboard {
   // verallgemeinert damit Abfrage auch für Spielerplatzierung funktioniert
   isPlacementValid(x, y, ship) {
     for (let i = 0; i < ship.getShipLength(); i++) {
-      if (ship.direction === "v")
-        if (this.gameboard[x + i][y] !== 0 || x + i > 9) return false;
-      if (ship.direction === "h")
-        if (this.gameboard[x][y + i] !== 0 || y + i > 9) return false;
-      return true;
+      if (ship.direction === "v") {
+        if (x + i > 9) return false;
+        if (this.gameboard[x + i][y] !== 0) return false;
+      }
+      if (ship.direction === "h") {
+        if (y + i > 9) return false;
+        if (this.gameboard[x][y + i] !== 0) return false;
+      }
     }
+    return true;
   }
 
   attackShip(x, y) {
@@ -111,9 +115,9 @@ class Gameboard {
       ship.timesHit++;
       //setter Methode als Ersatz
       //this.gameboard[x][y] = "Treffer";
-      this.setGameBoard(x, y, "Treffer");
+      this.setGameBoard(x, y, "T");
 
-      if (ship.timesHit === ship.shipLength()) {
+      if (ship.timesHit === ship.getShipLength()) {
         ship.isSunk = true;
         console.log(`Du hast ${ship.name} versenkt!`);
         return "Versenkt";
