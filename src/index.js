@@ -30,8 +30,8 @@ gameboardKI.placeShipsCPU();
 console.log("helloKi", gameboardKI);
 
 const newGameBoardView = new GameboardView();
-newGameBoardView.updateShips(gameboardKI.getGameBoard());
-/* 
+newGameBoardView.showShips(gameboardKI.getGameBoard());
+
 //zum testen geadded
 let shot = 0;
 while (shot < 100) {
@@ -39,5 +39,5 @@ while (shot < 100) {
   let x = shot[0];
   let y = shot[1];
   player.attackEnemy(x, y);
+  newGameBoardView.updateViewBoard(gameboardKI.getGameBoard());
 }
- */
