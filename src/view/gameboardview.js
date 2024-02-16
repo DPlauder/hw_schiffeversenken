@@ -1,8 +1,13 @@
 class GameboardView {
   constructor() {
     this.createGameboardView();
+    this.createSidebar();
   }
 
+  createSidebar = () => {
+    const sideBar = document.getElementById("sideBar");
+    sideBar.classList.add("sideBar");
+  };
   createGameboardView = () => {
     const container = document.getElementById("board");
     for (let i = 0; i < 100; i++) {
