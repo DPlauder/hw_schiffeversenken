@@ -28,7 +28,6 @@ body {
   margin-right: auto;
   display: grid;
   grid-template-columns: repeat(10, auto);
-  grid-gap: 5px;
   align-items: stretch;
 
   .cell {
@@ -42,4 +41,10 @@ body {
 }
 .ship {
   background-color: black;
+}
+.shipHit {
+  background-color: red;
+}
+.shipMiss {
+  background-color: blue;
 }

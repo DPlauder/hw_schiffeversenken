@@ -30,7 +30,6 @@ body {
   margin-right: auto;
   display: grid;
   grid-template-columns: repeat(10, auto);
-  grid-gap: 5px;
   align-items: stretch;
 }
 #board .cell {

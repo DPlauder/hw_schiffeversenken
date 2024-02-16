@@ -13,8 +13,9 @@ class Gameboard {
   createGameboard() {
     //temporäres Array für Erstellung + return
     const board = [];
+    let innerArray = [];
     for (let i = 0; i < 10; i++) {
-      const innerArray = [];
+      innerArray = [];
       for (let j = 0; j < 10; j++) {
         innerArray.push(0);
       }
@@ -139,6 +140,9 @@ class Gameboard {
   }
   getGameBoard() {
     return this.gameboard;
+  }
+  checkWin() {
+    return this.ships.every((ship) => ship.isSunk === true);
   }
 }
 
