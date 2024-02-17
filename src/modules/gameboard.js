@@ -111,6 +111,11 @@ class Gameboard {
   attackShip(x, y) {
     const currentItem = this.gameboard[x][y];
     const ship = this.ships.find((ship) => ship.id === currentItem);
+    //Abfrage Feld Doppelschuss
+    if (this.gameboard[x][y] === "T" || this.gameboard[x][y] === "X") {
+      console.log("Auf das Feld wurde schon geschossen");
+      return false;
+    }
     if (ship) {
       ship.timesHit++;
       //setter Methode als Ersatz

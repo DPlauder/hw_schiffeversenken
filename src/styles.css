@@ -23,16 +23,25 @@ body {
   border: 1px solid #ccc;
 }
 
-#board {
+#boardContainer {
+  width: 100%;
   height: 75%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#boardKi,
+#boardPlayer {
+  height: 50%;
   width: 50%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
   display: grid;
   grid-template-columns: repeat(10, auto);
   align-items: stretch;
 }
-#board .cell {
+#boardKi .cell,
+#boardPlayer .cell {
   width: auto;
   height: auto;
   border: 1px solid #ccc;
@@ -43,4 +52,12 @@ body {
 
 .ship {
   background-color: black;
+}
+
+.shipHit {
+  background-color: red;
+}
+
+.shipMiss {
+  background-color: blue;
 }/*# sourceMappingURL=styles.css.map */
