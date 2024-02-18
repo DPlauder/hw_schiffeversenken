@@ -33,14 +33,18 @@ const gameBoardViewKi = new GameboardView("boardKi");
 
 gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
 
-console.log(gameboardKI.getGameBoard());
-
 //zum testen geadded
-let shot = 0;
-while (shot) {
-  shot = prompt("gib nummer von 00 bis 99 ein oder beende mit 100");
-  let x = shot[0];
-  let y = shot[1];
-  player.attackEnemy(x, y);
-  gameBoardViewKi.updateViewBoard(gameboardKI.getGameBoard());
-}
+
+const shootBoard = document
+  .getElementById("boardKi")
+  .addEventListener("click", (e) => {
+    const targetCell = e.target.id;
+    if (targetCell < 10) {
+      "00" + targetCell;
+      player.attackEnemy(0, targetCell);
+    } else {
+      player.attackEnemy(targetCell[0], targetCell[1]);
+    }
+
+    gameBoardViewKi.updateViewBoard(gameboardKI.getGameBoard());
+  });
