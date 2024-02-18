@@ -23,7 +23,7 @@ class Gameboard {
     }
     return board;
   }
-
+  // wird nicht benutzt
   placeShip(ship, x, y) {
     let z = 1;
     if (this.gameboard[x][y] !== 0) {
@@ -52,6 +52,7 @@ class Gameboard {
         )
       );
     });
+    // rausgenommen weil unnötig / doppelt
     /* 
     const carrier = new Ship("carrier", 5, 5, this.ships);
     const battleship = new Ship("battleship", 4, 4, this.ships);
@@ -62,7 +63,7 @@ class Gameboard {
     //this.ships.push(carrier, battleship, cruiser, submarine, destroyer);
     //console.log(this.ships);
   }
-  // Funktion ausgelagert von placeShips
+  // Funktion ausgelagert von placeShips & geändert damit schiffe horizontal oder vertikal
   setShipPosition(x, y, ship) {
     const shiplength = ship.getShipLength();
     for (let i = 0; i < shiplength; i++) {
