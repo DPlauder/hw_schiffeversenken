@@ -24,8 +24,10 @@ const destroyer = new Ship("Destroyer", 2, 1, "h");
 ships.push(carrier, battleship, cruiser, submarine, destroyer);
 
 //Schiffe generieren und platzieren
+/* 
 gameboardPlayer.createShipsCPU(ships);
 gameboardPlayer.placeShipsCPU();
+ */
 gameboardKI.createShipsCPU(ships);
 gameboardKI.placeShipsCPU();
 
@@ -36,7 +38,23 @@ const shipsSelector = new ShipSelector();
 
 gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
 
-//zum testen geadded
+//zum testen geadded <<<<<<<<<<<<===================================
+
+let shipSelector = 0;
+const select = document
+  .getElementById("selectorBtnContainer")
+  .addEventListener("click", (e) => {
+    const key = e.target.textContent;
+    if (key === ">") {
+      shipSelector++;
+      shipsSelector.createShipFrame(shipSelector);
+    }
+    if (key === "<" && shipSelector > 0) {
+      shipSelector--;
+      shipsSelector.createShipFrame(shipSelector);
+    }
+  });
+
 const shootBoard = document
   .getElementById("boardKi")
   .addEventListener("click", (e) => {

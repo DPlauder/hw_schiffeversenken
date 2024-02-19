@@ -47,9 +47,7 @@ body {
     cursor: pointer;
   }
 }
-.ship {
-  background-color: black;
-}
+
 .shipHit {
   background-color: red;
 }
@@ -64,15 +62,22 @@ body {
 
   .shipFrame {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    width: 100%;
+    gap: 1px;
     height: 80px;
     border: 1px solid black;
+    grid-auto-flow: column;
     .shipDisplay {
-      display: grid;
+      display: flex;
+      gap: 2px;
       height: 50%;
       width: 80%;
+      .ship {
+        background-color: black;
+        width: calc(100% / var(--num-ships));
+        height: 100%;
+      }
     }
   }
   .btnContainer {
