@@ -56,3 +56,36 @@ body {
 .shipMiss {
   background-color: blue;
 }
+.shipSelector {
+  display: grid;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  .shipFrame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    border: 1px solid black;
+    .shipDisplay {
+      display: grid;
+      height: 50%;
+      width: 80%;
+    }
+  }
+  .btnContainer {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+
+    button {
+      width: 100%;
+    }
+  }
+}

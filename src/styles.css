@@ -24,6 +24,7 @@ body {
 }
 
 #boardContainer {
+  margin: 20px;
   width: 100%;
   height: 75%;
   display: flex;
@@ -60,4 +61,36 @@ body {
 
 .shipMiss {
   background-color: blue;
+}
+
+.shipSelector {
+  display: grid;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.shipSelector .shipFrame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  border: 1px solid black;
+}
+.shipSelector .shipFrame .shipDisplay {
+  display: grid;
+  height: 50%;
+  width: 80%;
+}
+.shipSelector .btnContainer {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.shipSelector .btnContainer button {
+  width: 100%;
 }/*# sourceMappingURL=styles.css.map */

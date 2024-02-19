@@ -5,6 +5,7 @@ import { Gameboard } from "./modules/gameboard.js";
 import { Player } from "./modules/player.js";
 import { Ship } from "./modules/ship.js";
 import { GameboardView } from "./view/gameboardview.js";
+import { ShipSelector } from "./view/shipsSelector.js";
 
 //let declarations schreibgeschützt
 const gameboardPlayer = new Gameboard();
@@ -12,7 +13,7 @@ const gameboardKI = new Gameboard();
 
 const player = new Player("Marko", gameboardKI);
 
-// Testschiffe
+//Testschiffe;
 const ships = [];
 const carrier = new Ship("carrier", 5, 5, "h");
 const battleship = new Ship("battleship", 4, 4, "h");
@@ -22,13 +23,16 @@ const destroyer = new Ship("Destroyer", 2, 1, "h");
 
 ships.push(carrier, battleship, cruiser, submarine, destroyer);
 
+//Schiffe generieren und platzieren
 gameboardPlayer.createShipsCPU(ships);
 gameboardPlayer.placeShipsCPU();
 gameboardKI.createShipsCPU(ships);
 gameboardKI.placeShipsCPU();
 
+//UI
 const gameBoardViewPlayer = new GameboardView("boardPlayer");
 const gameBoardViewKi = new GameboardView("boardKi");
+const shipsSelector = new ShipSelector();
 
 gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
 

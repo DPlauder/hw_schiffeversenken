@@ -2,7 +2,6 @@ class GameboardView {
   constructor(boardName) {
     this.parent = document.getElementById(boardName);
     this.createGameboardView();
-
     this.createSidebar();
   }
 
