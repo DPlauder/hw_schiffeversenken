@@ -15,11 +15,11 @@ const player = new Player("Marko", gameboardKI);
 
 //Testschiffe;
 const ships = [];
-const carrier = new Ship("carrier", 5, 5, "h");
-const battleship = new Ship("battleship", 4, 4, "h");
-const cruiser = new Ship("cruiser", 3, 3, "h");
-const submarine = new Ship("submarine", 3, 2, "h");
-const destroyer = new Ship("Destroyer", 2, 1, "h");
+const carrier = new Ship("carrier", 5);
+const battleship = new Ship("battleship", 4);
+const cruiser = new Ship("cruiser", 3);
+const submarine = new Ship("submarine", 3);
+const destroyer = new Ship("Destroyer", 2);
 
 ships.push(carrier, battleship, cruiser, submarine, destroyer);
 
@@ -28,6 +28,7 @@ ships.push(carrier, battleship, cruiser, submarine, destroyer);
 gameboardPlayer.createShipsCPU(ships);
 gameboardPlayer.placeShipsCPU();
  */
+console.log(ships);
 gameboardKI.createShipsCPU(ships);
 gameboardKI.placeShipsCPU();
 
@@ -40,18 +41,23 @@ gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
 
 //zum testen geadded <<<<<<<<<<<<===================================
 
-let shipSelector = 0;
+let shipNumb = 1;
+shipsSelector.createShipFrame(shipNumb);
 const select = document
   .getElementById("selectorBtnContainer")
   .addEventListener("click", (e) => {
     const key = e.target.textContent;
-    if (key === ">") {
-      shipSelector++;
-      shipsSelector.createShipFrame(shipSelector);
+    if (key === ">" && shipNumb < 5) {
+      shipNumb++;
     }
-    if (key === "<" && shipSelector > 0) {
-      shipSelector--;
-      shipsSelector.createShipFrame(shipSelector);
+    if (key === "<" && shipNumb > 1) {
+      shipNumb--;
+    }
+    shipsSelector.createShipFrame(shipNumb);
+    if (key === "O") {
+      console.log(shipNumb);
+      shipsSelector.addChosenShips(shipNumb);
+      console.log(shipsSelector.getChosenShips());
     }
   });
 

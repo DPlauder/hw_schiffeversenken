@@ -2,11 +2,11 @@ class ShipSelector {
   constructor() {
     this.createShipselectorUi();
     this.ships = [
-      { name: "Carrier", length: 5, direction: "h" },
-      { name: "Battleship", length: 4, direction: "h" },
-      { name: "Cruiser", length: 3, direction: "h" },
-      { name: "Submarine", length: 3, direction: "h" },
-      { name: "Destroyer", length: 2, direction: "h" },
+      { name: "ship1", length: 2, direction: "h" },
+      { name: "ship2", length: 3, direction: "h" },
+      { name: "ship3", length: 4, direction: "h" },
+      { name: "ship4", length: 5, direction: "h" },
+      { name: "ship5", length: 7, direction: "h" },
     ];
     this.chosenShips = [];
   }
@@ -54,10 +54,12 @@ class ShipSelector {
     container.className = `ship${shipNumber}`;
     const template = document.getElementById(`ship${shipNumber}`);
     const shipClone = template.content.cloneNode(true);
-
     container.appendChild(shipClone);
   }
 
+  addChosenShips(shipsSelector) {
+    this.chosenShips.push(this.ships[shipsSelector - 1]);
+  }
   getChosenShips() {
     return this.chosenShips;
   }

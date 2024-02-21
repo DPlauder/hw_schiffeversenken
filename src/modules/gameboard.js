@@ -42,15 +42,18 @@ class Gameboard {
   }
   // angepasst damit CPU immer die selben Schiffe erstellt wie Player
   createShipsCPU(ships) {
+    //counter hinzugefügt für ids
+    let idCounter = 1;
     ships.forEach((ship) => {
       this.ships.push(
         new Ship(
           ship.name,
           ship.length,
-          ship.id,
+          idCounter,
           Math.random() >= 0.5 ? "h" : "v"
         )
       );
+      idCounter++;
     });
     // rausgenommen weil unnötig / doppelt
     /* 
