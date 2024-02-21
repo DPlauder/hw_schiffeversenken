@@ -47,17 +47,15 @@ class ShipSelector {
     btnContainer.appendChild(sliderBtnRight);
     sliderBtnRight.innerHTML = ">";
   }
-  createShipFrame(shipLength) {
+
+  createShipFrame(shipNumber) {
     const container = document.getElementById("shipDisplay");
     container.innerHTML = "";
-    const length = shipLength;
-    container.style.setProperty("--num-ships", length);
+    container.className = `ship${shipNumber}`;
+    const template = document.getElementById(`ship${shipNumber}`);
+    const shipClone = template.content.cloneNode(true);
 
-    for (let i = 0; i < length; i++) {
-      const cell = document.createElement("div");
-      cell.classList.add("ship");
-      container.appendChild(cell);
-    }
+    container.appendChild(shipClone);
   }
 
   getChosenShips() {
