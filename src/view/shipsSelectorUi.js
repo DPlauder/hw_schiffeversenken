@@ -1,14 +1,6 @@
-class ShipSelector {
+class ShipSelectorUi {
   constructor() {
     this.createShipselectorUi();
-    this.ships = [
-      { name: "ship1", length: 2, direction: "h" },
-      { name: "ship2", length: 3, direction: "h" },
-      { name: "ship3", length: 4, direction: "h" },
-      { name: "ship4", length: 5, direction: "h" },
-      { name: "ship5", length: 7, direction: "h" },
-    ];
-    this.chosenShips = [];
   }
 
   createShipselectorUi() {
@@ -46,6 +38,12 @@ class ShipSelector {
     sliderBtnRight.classList.add("sliderBtnRight");
     btnContainer.appendChild(sliderBtnRight);
     sliderBtnRight.innerHTML = ">";
+
+    const startButton = document.createElement("button");
+    startButton.classList.add("startBtn");
+    startButton.id = "startBtn";
+    btnContainer.appendChild(startButton);
+    startButton.innerHTML = "Start";
   }
 
   createShipFrame(shipNumber) {
@@ -56,15 +54,8 @@ class ShipSelector {
     const shipClone = template.content.cloneNode(true);
     container.appendChild(shipClone);
   }
-
-  addChosenShips(shipsSelector) {
-    this.chosenShips.push(this.ships[shipsSelector - 1]);
-  }
-  getChosenShips() {
-    return this.chosenShips;
-  }
 }
 
-export { ShipSelector };
+export { ShipSelectorUi };
 
 //TODO ID's müssen mit +1 da 0 Platzhalter ist

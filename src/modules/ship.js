@@ -9,7 +9,8 @@ class Ship {
     this.direction = direction;
     this.isSunk = false;
     this.timesHit = 0;
-    this.ships = this.ships;
+    //keine Ahnung was damit geplant war
+    //this.ships = this.ships;
   }
 
   getShipLength() {

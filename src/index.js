@@ -5,7 +5,8 @@ import { Gameboard } from "./modules/gameboard.js";
 import { Player } from "./modules/player.js";
 import { Ship } from "./modules/ship.js";
 import { GameboardView } from "./view/gameboardview.js";
-import { ShipSelector } from "./view/shipsSelector.js";
+import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
+import { ShipSelector } from "./modules/shipSelector.js";
 
 //let declarations schreibgeschützt
 const gameboardPlayer = new Gameboard();
@@ -16,33 +17,47 @@ const player = new Player("Marko", gameboardKI);
 //Testschiffe;
 const ships = [];
 const carrier = new Ship("carrier", 5);
+/* 
 const battleship = new Ship("battleship", 4);
 const cruiser = new Ship("cruiser", 3);
 const submarine = new Ship("submarine", 3);
 const destroyer = new Ship("Destroyer", 2);
 
-ships.push(carrier, battleship, cruiser, submarine, destroyer);
-
+//ships.push(carrier, battleship, cruiser, submarine, destroyer);
+ships.push(carrier);
 //Schiffe generieren und platzieren
-/* 
+
 gameboardPlayer.createShipsCPU(ships);
 gameboardPlayer.placeShipsCPU();
  */
-console.log(ships);
-gameboardKI.createShipsCPU(ships);
-gameboardKI.placeShipsCPU();
+//gameboardKI.createShipsCPU(ships);
+//gameboardKI.placeShipsCPU();
 
 //UI
 const gameBoardViewPlayer = new GameboardView("boardPlayer");
 const gameBoardViewKi = new GameboardView("boardKi");
-const shipsSelector = new ShipSelector();
+const shipSelector = new ShipSelector();
+const shipsSelectorUi = new ShipSelectorUi();
 
 gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
 
 //zum testen geadded <<<<<<<<<<<<===================================
 
+let x = 11;
+let y = 11;
+const setShipPosition = document
+  .getElementById("boardPlayer")
+  .addEventListener("click", (e) => {
+    const key = e.target.id;
+    if (key < 10) {
+      (x = 0), (y = key);
+    } else {
+      (x = key[0]), (y = key[1]);
+    }
+  });
+
 let shipNumb = 1;
-shipsSelector.createShipFrame(shipNumb);
+shipsSelectorUi.createShipFrame(shipNumb);
 const select = document
   .getElementById("selectorBtnContainer")
   .addEventListener("click", (e) => {
@@ -53,12 +68,21 @@ const select = document
     if (key === "<" && shipNumb > 1) {
       shipNumb--;
     }
-    shipsSelector.createShipFrame(shipNumb);
+    shipsSelectorUi.createShipFrame(shipNumb);
     if (key === "O") {
-      console.log(shipNumb);
-      shipsSelector.addChosenShips(shipNumb);
-      console.log(shipsSelector.getChosenShips());
+      if (
+        gameboardPlayer.isPlacementValid(
+          x,
+          y,
+          shipSelector.getchosenShip(shipNumb)
+        )
+      ) {
+        shipSelector.addChosenShips(x, y, shipNumb);
+      } else {
+        console.log("cant place ship there");
+      }
     }
+    if (key === "Start") console.log(shipSelector.getChosenShips());
   });
 
 const shootBoard = document
@@ -66,7 +90,6 @@ const shootBoard = document
   .addEventListener("click", (e) => {
     const targetCell = e.target.id;
     if (targetCell < 10) {
-      "00" + targetCell;
       player.attackEnemy(0, targetCell);
     } else {
       player.attackEnemy(targetCell[0], targetCell[1]);

@@ -25,6 +25,7 @@ class Gameboard {
   }
   // wird nicht benutzt
   placeShip(ship, x, y) {
+    /* 
     let z = 1;
     if (this.gameboard[x][y] !== 0) {
       console.log("Hallo, hier ist ein Schiff! Platziere es bitte wo anders");
@@ -37,8 +38,8 @@ class Gameboard {
           this.gameboard[x + i][y] = ship.id;
         }
       }
-      this.ships.push(ship);
-    }
+       */
+    this.ships.push(ship);
   }
   // angepasst damit CPU immer die selben Schiffe erstellt wie Player
   createShipsCPU(ships) {
@@ -79,6 +80,7 @@ class Gameboard {
     for (const ship of this.ships) {
       let x = 0;
       let y = 0;
+      console.log("cpu", ship);
       do {
         x = Math.floor(Math.random() * 10);
         y = Math.floor(Math.random() * 10);
@@ -99,11 +101,15 @@ class Gameboard {
   // Regeln für Horizontale Schiffplatzierung dazu
   // verallgemeinert damit Abfrage auch für Spielerplatzierung funktioniert
   isPlacementValid(x, y, ship) {
-    for (let i = 0; i < ship.getShipLength(); i++) {
+    const shipLength = ship.getShipLength();
+    x = parseInt(x);
+    y = parseInt(y);
+    for (let i = 0; i < shipLength; i++) {
       if (ship.direction === "v") {
         if (x + i > 9) return false;
         if (this.gameboard[x + i][y] !== 0) return false;
       }
+      console.log(typeof x);
       if (ship.direction === "h") {
         if (y + i > 9) return false;
         if (this.gameboard[x][y + i] !== 0) return false;
