@@ -8,16 +8,18 @@ import { GameboardView } from "./view/gameboardview.js";
 import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
 import { ShipSelector } from "./modules/shipSelector.js";
 
+// Backend init
 //let declarations schreibgeschützt
 const gameboardPlayer = new Gameboard();
 const gameboardKI = new Gameboard();
-
+const shipSelector = new ShipSelector();
 const player = new Player("Marko", gameboardKI);
 
+/* rausgenommen da nichtmehr gebraucht
 //Testschiffe;
 const ships = [];
 const carrier = new Ship("carrier", 5);
-/* 
+
 const battleship = new Ship("battleship", 4);
 const cruiser = new Ship("cruiser", 3);
 const submarine = new Ship("submarine", 3);
@@ -33,13 +35,11 @@ gameboardPlayer.placeShipsCPU();
 //gameboardKI.createShipsCPU(ships);
 //gameboardKI.placeShipsCPU();
 
-//UI
+//UI init
 const gameBoardViewPlayer = new GameboardView("boardPlayer");
 const gameBoardViewKi = new GameboardView("boardKi");
-const shipSelector = new ShipSelector();
-const shipsSelectorUi = new ShipSelectorUi();
 
-gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
+const shipsSelectorUi = new ShipSelectorUi();
 
 //zum testen geadded <<<<<<<<<<<<===================================
 
