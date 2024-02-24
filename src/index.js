@@ -50,9 +50,9 @@ const setShipPosition = document
   .addEventListener("click", (e) => {
     const key = e.target.id;
     if (key < 10) {
-      (x = 0), (y = key);
+      (x = 0), (y = parseInt(key));
     } else {
-      (x = key[0]), (y = key[1]);
+      (x = parseInt(key[0])), (y = parseInt(key[1]));
     }
   });
 
@@ -77,12 +77,22 @@ const select = document
           shipSelector.getchosenShip(shipNumb)
         )
       ) {
-        shipSelector.addChosenShips(x, y, shipNumb);
+        shipSelector.addChosenShips(shipNumb);
+        gameboardPlayer.placeShip(
+          shipSelector.getPossibleShips(shipNumb),
+          x,
+          y
+        );
+        gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
       } else {
         console.log("cant place ship there");
       }
     }
-    if (key === "Start") console.log(shipSelector.getChosenShips());
+    if (key === "Start") {
+      gameboardKI.createShipsCPU(shipSelector.getChosenShips());
+      gameboardKI.placeShipsCPU();
+      console.log(gameboardKI.getGameBoard());
+    }
   });
 
 const shootBoard = document

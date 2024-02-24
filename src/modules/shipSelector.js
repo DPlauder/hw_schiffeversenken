@@ -19,11 +19,13 @@ class ShipSelector {
       this.shipsObjects.push(newShip);
     });
   }
+  getPossibleShips(shipSelector) {
+    console.log("getpos", this.ships[shipSelector - 1]);
+    return this.ships[shipSelector - 1];
+  }
 
-  getchosenShip(x, y, shipsSelector) {
+  getchosenShip(shipsSelector) {
     const ship = this.shipsObjects[shipsSelector - 1];
-
-    console.log(ship);
     return ship;
   }
   getChosenShips() {
@@ -31,8 +33,6 @@ class ShipSelector {
   }
   //TODO Coordinaten müssen zugefügt werden für erstellung
   addChosenShips(shipsSelector) {
-    //ship.x = x;
-    //ship.y = y;
     this.chosenShips.push(this.ships[shipsSelector - 1]);
   }
 }

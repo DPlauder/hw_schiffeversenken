@@ -25,6 +25,20 @@ class Gameboard {
   }
   // wird nicht benutzt
   placeShip(ship, x, y) {
+    const id = this.ships.length + 1;
+    const shipClone = new Ship(ship.name, ship.length, id, ship.direction);
+    console.log(shipClone);
+    if (shipClone.direction === "h") {
+      for (let i = 0; i < shipClone.getShipLength(); i++) {
+        this.gameboard[x][y + i] = shipClone.id;
+      }
+    }
+    if (shipClone.direction === "v") {
+      for (let i = 0; i < shipClone.getShipLength(); i++) {
+        this.gameboard[x + i][y] = shipClone.id;
+      }
+    }
+    // rausgenommen
     /* 
     let z = 1;
     if (this.gameboard[x][y] !== 0) {
@@ -39,7 +53,7 @@ class Gameboard {
         }
       }
        */
-    this.ships.push(ship);
+    this.ships.push(shipClone);
   }
   // angepasst damit CPU immer die selben Schiffe erstellt wie Player
   createShipsCPU(ships) {
@@ -109,7 +123,6 @@ class Gameboard {
         if (x + i > 9) return false;
         if (this.gameboard[x + i][y] !== 0) return false;
       }
-      console.log(typeof x);
       if (ship.direction === "h") {
         if (y + i > 9) return false;
         if (this.gameboard[x][y + i] !== 0) return false;

@@ -51,6 +51,11 @@ body {
     cursor: pointer;
   }
 }
+.ship {
+  background-color: black;
+  width: 38px;
+  height: 38px;
+}
 
 .shipHit {
   background-color: red;
