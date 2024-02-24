@@ -40,6 +40,7 @@ const gameBoardViewPlayer = new GameboardView("boardPlayer");
 const gameBoardViewKi = new GameboardView("boardKi");
 
 const shipsSelectorUi = new ShipSelectorUi();
+shipsSelectorUi.createShipFrame(1);
 
 //zum testen geadded <<<<<<<<<<<<===================================
 
@@ -57,16 +58,23 @@ const setShipPosition = document
   });
 
 let shipNumb = 1;
-shipsSelectorUi.createShipFrame(shipNumb);
+let direction = "h";
 const select = document
   .getElementById("selectorBtnContainer")
   .addEventListener("click", (e) => {
     const key = e.target.textContent;
+
     if (key === ">" && shipNumb < 5) {
       shipNumb++;
     }
     if (key === "<" && shipNumb > 1) {
       shipNumb--;
+    }
+    if (key === "h" || key == "v") {
+      console.log(key);
+      if (key === "h") direction = "v";
+      if (key === "v") direction = "h";
+      shipsSelectorUi.changeVariant(key);
     }
     shipsSelectorUi.createShipFrame(shipNumb);
     if (key === "O") {
@@ -74,12 +82,12 @@ const select = document
         gameboardPlayer.isPlacementValid(
           x,
           y,
-          shipSelector.getchosenShip(shipNumb)
+          shipSelector.getchosenShip(shipNumb, direction)
         )
       ) {
         shipSelector.addChosenShips(shipNumb);
         gameboardPlayer.placeShip(
-          shipSelector.getPossibleShips(shipNumb),
+          shipSelector.getchosenShip(shipNumb, direction),
           x,
           y
         );
@@ -91,7 +99,7 @@ const select = document
     if (key === "Start") {
       gameboardKI.createShipsCPU(shipSelector.getChosenShips());
       gameboardKI.placeShipsCPU();
-      console.log(gameboardKI.getGameBoard());
+      //console.log(gameboardPlayer.getGameBoard());
     }
   });
 

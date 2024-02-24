@@ -44,6 +44,12 @@ class ShipSelectorUi {
     startButton.id = "startBtn";
     btnContainer.appendChild(startButton);
     startButton.innerHTML = "Start";
+
+    const variantButton = document.createElement("button");
+    variantButton.classList.add("variantBtn");
+    variantButton.id = "variantButton";
+    btnContainer.appendChild(variantButton);
+    variantButton.innerText = "h";
   }
 
   createShipFrame(shipNumber) {
@@ -53,6 +59,18 @@ class ShipSelectorUi {
     const template = document.getElementById(`ship${shipNumber}`);
     const shipClone = template.content.cloneNode(true);
     container.appendChild(shipClone);
+  }
+  changeVariant(direction) {
+    const varButton = document.getElementById("variantButton");
+    const display = document.getElementById("shipDisplay");
+    if (direction === "h") {
+      varButton.innerText = "v";
+      display.style.flexDirection = "column";
+    }
+    if (direction === "v") {
+      varButton.innerText = "h";
+      display.style.flexDirection = "row";
+    }
   }
 }
 

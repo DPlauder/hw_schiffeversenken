@@ -24,8 +24,10 @@ class ShipSelector {
     return this.ships[shipSelector - 1];
   }
 
-  getchosenShip(shipsSelector) {
+  getchosenShip(shipsSelector, direction) {
     const ship = this.shipsObjects[shipsSelector - 1];
+    ship.direction = direction;
+    console.log(ship);
     return ship;
   }
   getChosenShips() {

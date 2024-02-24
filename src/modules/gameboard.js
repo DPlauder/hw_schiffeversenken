@@ -27,7 +27,6 @@ class Gameboard {
   placeShip(ship, x, y) {
     const id = this.ships.length + 1;
     const shipClone = new Ship(ship.name, ship.length, id, ship.direction);
-    console.log(shipClone);
     if (shipClone.direction === "h") {
       for (let i = 0; i < shipClone.getShipLength(); i++) {
         this.gameboard[x][y + i] = shipClone.id;
@@ -94,7 +93,6 @@ class Gameboard {
     for (const ship of this.ships) {
       let x = 0;
       let y = 0;
-      console.log("cpu", ship);
       do {
         x = Math.floor(Math.random() * 10);
         y = Math.floor(Math.random() * 10);
