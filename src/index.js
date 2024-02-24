@@ -3,47 +3,41 @@
 import "./styles.scss";
 import { Gameboard } from "./modules/gameboard.js";
 import { Player } from "./modules/player.js";
-import { Ship } from "./modules/ship.js";
 import { GameboardView } from "./view/gameboardview.js";
 import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
 import { ShipSelector } from "./modules/shipSelector.js";
-
-// Backend init
-//let declarations schreibgeschützt
-const gameboardPlayer = new Gameboard();
-const gameboardKI = new Gameboard();
-const shipSelector = new ShipSelector();
-const player = new Player("Marko", gameboardKI);
 
 /* rausgenommen da nichtmehr gebraucht
 //Testschiffe;
 const ships = [];
 const carrier = new Ship("carrier", 5);
-
 const battleship = new Ship("battleship", 4);
 const cruiser = new Ship("cruiser", 3);
 const submarine = new Ship("submarine", 3);
 const destroyer = new Ship("Destroyer", 2);
-
 //ships.push(carrier, battleship, cruiser, submarine, destroyer);
 ships.push(carrier);
 //Schiffe generieren und platzieren
-
 gameboardPlayer.createShipsCPU(ships);
 gameboardPlayer.placeShipsCPU();
- */
-//gameboardKI.createShipsCPU(ships);
-//gameboardKI.placeShipsCPU();
+gameboardKI.createShipsCPU(ships);
+gameboardKI.placeShipsCPU();
+*/
+
+// Backend init
+//let declarations schreibgeschützt gesetzt(const)
+const gameboardPlayer = new Gameboard();
+const gameboardKI = new Gameboard();
+const shipSelector = new ShipSelector();
+const player = new Player("Marko", gameboardKI);
 
 //UI init
 const gameBoardViewPlayer = new GameboardView("boardPlayer");
 const gameBoardViewKi = new GameboardView("boardKi");
-
 const shipsSelectorUi = new ShipSelectorUi();
 shipsSelectorUi.createShipFrame(1);
 
 //zum testen geadded <<<<<<<<<<<<===================================
-
 let x = 11;
 let y = 11;
 const setShipPosition = document
@@ -99,7 +93,8 @@ const select = document
     if (key === "Start") {
       gameboardKI.createShipsCPU(shipSelector.getChosenShips());
       gameboardKI.placeShipsCPU();
-      //console.log(gameboardPlayer.getGameBoard());
+      console.log("shipObjects", shipSelector.shipsObjects);
+      console.log(shipSelector.chosenShips);
     }
   });
 

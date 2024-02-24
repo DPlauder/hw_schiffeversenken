@@ -113,6 +113,7 @@ class Gameboard {
   // Regeln für Horizontale Schiffplatzierung dazu
   // verallgemeinert damit Abfrage auch für Spielerplatzierung funktioniert
   isPlacementValid(x, y, ship) {
+    console.log(ship);
     const shipLength = ship.getShipLength();
     x = parseInt(x);
     y = parseInt(y);

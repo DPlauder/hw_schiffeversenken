@@ -71,17 +71,18 @@ body {
 
   .shipFrame {
     display: flex;
-    justify-content: space-evenly;
+    padding: 10px;
+    justify-content: center;
     align-items: center;
     gap: 1px;
-    height: 80px;
+
     border: 1px solid black;
     grid-auto-flow: column;
     #shipDisplay {
       width: 75%;
-      height: 25%;
       display: flex;
       justify-content: space-around;
+      align-items: center;
       gap: 5px;
     }
   }
@@ -89,6 +90,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+    margin-bottom: 10px;
     width: auto;
     display: flex;
     flex-direction: row;

@@ -3,11 +3,11 @@ import { Ship } from "./ship";
 class ShipSelector {
   constructor() {
     this.ships = [
-      { name: "ship1", length: 2, direction: "h" },
-      { name: "ship2", length: 3, direction: "h" },
-      { name: "ship3", length: 4, direction: "h" },
-      { name: "ship4", length: 5, direction: "h" },
-      { name: "ship5", length: 7, direction: "h" },
+      { name: "ship1", length: 2 },
+      { name: "ship2", length: 3 },
+      { name: "ship3", length: 4 },
+      { name: "ship4", length: 5 },
+      { name: "ship5", length: 7 },
     ];
     this.shipsObjects = [];
     this.chosenShips = [];
@@ -15,25 +15,25 @@ class ShipSelector {
   }
   initiateShips() {
     this.ships.forEach((ship) => {
-      const newShip = new Ship(ship.name, ship.length, null, ship.direction);
+      const newShip = new Ship(ship.name, ship.length, null, null);
       this.shipsObjects.push(newShip);
     });
   }
-  getPossibleShips(shipSelector) {
-    console.log("getpos", this.ships[shipSelector - 1]);
-    return this.ships[shipSelector - 1];
-  }
-
+  // original Object wird überschrieben
   getchosenShip(shipsSelector, direction) {
     const ship = this.shipsObjects[shipsSelector - 1];
+    //TODO Fehler Ship copy
+    // original Object wird überschrieben ||
+    // versuch unten hat nicht funktiont da validPos nicht funktioniert
+    //const cloneShip = Object.assign({}, ship);
     ship.direction = direction;
-    console.log(ship);
     return ship;
   }
+
+  //für CPU Erstellung
   getChosenShips() {
     return this.chosenShips;
   }
-  //TODO Coordinaten müssen zugefügt werden für erstellung
   addChosenShips(shipsSelector) {
     this.chosenShips.push(this.ships[shipsSelector - 1]);
   }

@@ -10,6 +10,11 @@ class ShipSelectorUi {
     selector.classList.add("shipSelector");
     container.appendChild(selector);
 
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("btnContainer");
+    btnContainer.id = "selectorBtnContainer";
+    selector.appendChild(btnContainer);
+
     const shipFrame = document.createElement("div");
     shipFrame.classList.add("shipFrame");
     selector.appendChild(shipFrame);
@@ -18,11 +23,6 @@ class ShipSelectorUi {
     shipDisplay.classList.add("shipDisplay");
     shipDisplay.id = "shipDisplay";
     shipFrame.appendChild(shipDisplay);
-
-    const btnContainer = document.createElement("div");
-    btnContainer.classList.add("btnContainer");
-    btnContainer.id = "selectorBtnContainer";
-    selector.appendChild(btnContainer);
 
     const sliderBtnLeft = document.createElement("button");
     sliderBtnLeft.classList.add("sliderBtnLeft");
