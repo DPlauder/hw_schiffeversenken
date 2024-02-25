@@ -55,6 +55,7 @@ class Gameboard {
     this.ships.push(shipClone);
   }
   // angepasst damit CPU immer die selben Schiffe erstellt wie Player
+  //TODO direction Regel erstellen wenn spezial Schiffe
   createShipsCPU(ships) {
     //counter hinzugefügt für ids
     let idCounter = 1;
@@ -81,7 +82,8 @@ class Gameboard {
     //console.log(this.ships);
   }
   // Funktion ausgelagert von placeShips & geändert damit schiffe horizontal oder vertikal
-  setShipPosition(x, y, ship) {
+  //TODO anpassen für spezial Schiffe
+  setShipPositionCpu(x, y, ship) {
     const shiplength = ship.getShipLength();
     for (let i = 0; i < shiplength; i++) {
       if (ship.direction == "h") this.gameboard[x][y + i] = ship.id;
@@ -97,7 +99,7 @@ class Gameboard {
         x = Math.floor(Math.random() * 10);
         y = Math.floor(Math.random() * 10);
       } while (!this.isPlacementValid(x, y, ship));
-      this.setShipPosition(x, y, ship);
+      this.setShipPositionCpu(x, y, ship);
       /* 
       for (let i = 0; i < ship.shipLength(); i++) {
         if (x + i > 9) {
@@ -112,6 +114,7 @@ class Gameboard {
   }
   // Regeln für Horizontale Schiffplatzierung dazu
   // verallgemeinert damit Abfrage auch für Spielerplatzierung funktioniert
+  //TODO anpassen für spezial Schiffe
   isPlacementValid(x, y, ship) {
     console.log(ship);
     const shipLength = ship.getShipLength();

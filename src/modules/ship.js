@@ -9,6 +9,7 @@ class Ship {
     this.direction = direction;
     this.isSunk = false;
     this.timesHit = 0;
+    this.alignment = "straight";
     //keine Ahnung was damit geplant war
     //this.ships = this.ships;
   }
@@ -20,7 +21,13 @@ class Ship {
   hit() {
     return this.timesHit;
   }
-
+  // zugefügt für Formen
+  setShipAlignment(alignment) {
+    this.alignment = alignment;
+  }
+  getShipAlignment() {
+    return this.alignment;
+  }
   checkShipSunk() {
     this.ships.forEach((ship) => {
       if (ship.timesHit === ship.shipLength()) {

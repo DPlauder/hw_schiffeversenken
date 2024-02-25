@@ -58,17 +58,27 @@ const select = document
   .addEventListener("click", (e) => {
     const key = e.target.textContent;
 
-    if (key === ">" && shipNumb < 5) {
+    if (key === ">" && shipNumb < 6) {
       shipNumb++;
     }
     if (key === "<" && shipNumb > 1) {
       shipNumb--;
     }
-    if (key === "h" || key == "v") {
-      console.log(key);
+    if (shipNumb > 5 && (direction === "h" || direction === "v")) {
+      direction = "sw";
+      console.log("hello sw");
+      shipsSelectorUi.changeVariant(direction);
+    }
+    if (shipNumb <= 5 && direction !== "h" && direction !== "v") {
+      direction = "h";
+      shipsSelectorUi.changeVariant(direction);
+    }
+    if ((key === "h" || key == "v") && shipNumb <= 5) {
       if (key === "h") direction = "v";
       if (key === "v") direction = "h";
-      shipsSelectorUi.changeVariant(key);
+      console.log("hello key", key);
+
+      shipsSelectorUi.changeVariant(direction);
     }
     shipsSelectorUi.createShipFrame(shipNumb);
     if (key === "O") {
@@ -93,8 +103,6 @@ const select = document
     if (key === "Start") {
       gameboardKI.createShipsCPU(shipSelector.getChosenShips());
       gameboardKI.placeShipsCPU();
-      console.log("shipObjects", shipSelector.shipsObjects);
-      console.log(shipSelector.chosenShips);
     }
   });
 

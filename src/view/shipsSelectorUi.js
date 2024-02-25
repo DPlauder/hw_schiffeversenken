@@ -63,14 +63,16 @@ class ShipSelectorUi {
   changeVariant(direction) {
     const varButton = document.getElementById("variantButton");
     const display = document.getElementById("shipDisplay");
-    if (direction === "h") {
-      varButton.innerText = "v";
+    if (direction === "v") {
       display.style.flexDirection = "column";
     }
-    if (direction === "v") {
-      varButton.innerText = "h";
+    if (direction === "h") {
       display.style.flexDirection = "row";
     }
+    if (direction === "sw") {
+      console.log("hello swchange");
+    }
+    varButton.innerText = direction;
   }
 }
 
