@@ -32,10 +32,11 @@ class ShipSelector {
     });
   }
   // original Object wird überschrieben
+  //FIXME Schiffe direkt in getchosenShips initieren, erspart die initateShips
   getchosenShip(shipsSelector, direction) {
     const ship = this.shipsObjects[shipsSelector - 1];
     console.log("chosenShip", ship);
-    //TODO Fehler Ship copy
+    //FIXME Fehler Ship copy
     // original Object wird überschrieben ||
     // versuch unten hat nicht funktiont da validPos nicht funktioniert
     //const cloneShip = Object.assign({}, ship);
