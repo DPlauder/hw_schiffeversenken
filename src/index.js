@@ -58,29 +58,40 @@ const select = document
   .addEventListener("click", (e) => {
     const key = e.target.textContent;
 
-    if (key === ">" && shipNumb < 6) {
+    if (key === ">" && shipNumb < 10) {
       shipNumb++;
     }
     if (key === "<" && shipNumb > 1) {
       shipNumb--;
     }
-    if (shipNumb > 5 && (direction === "h" || direction === "v")) {
-      direction = "sw";
-      console.log("hello sw");
-      shipsSelectorUi.changeVariant(direction);
-    }
-    if (shipNumb <= 5 && direction !== "h" && direction !== "v") {
+    //alignment "straight"
+    if (shipNumb <= 7 && direction !== "h" && direction !== "v") {
       direction = "h";
-      shipsSelectorUi.changeVariant(direction);
+      //shipsSelectorUi.changeVariant(direction);
     }
     if ((key === "h" || key == "v") && shipNumb <= 5) {
       if (key === "h") direction = "v";
       if (key === "v") direction = "h";
-      console.log("hello key", key);
-
-      shipsSelectorUi.changeVariant(direction);
+      //shipsSelectorUi.changeVariant(direction);
     }
-    shipsSelectorUi.createShipFrame(shipNumb);
+    //alignment "corner"
+    if (
+      shipNumb > 7 &&
+      shipNumb <= 9 &&
+      (direction !== "nw" ||
+        direction !== "sw" ||
+        direction !== "se" ||
+        direction !== "ne")
+    ) {
+      direction = "sw";
+      console.log("hello sw");
+      //shipsSelectorUi.changeVariant(direction);
+    }
+    if (shipNumb > 9 && direction !== "O") {
+      direction = "O";
+    }
+    console.log(direction, shipNumb);
+    //shipsSelectorUi.createShipFrame(shipNumb);
     if (key === "O") {
       if (
         gameboardPlayer.isPlacementValid(
@@ -101,6 +112,7 @@ const select = document
       }
     }
     if (key === "Start") {
+      console.log(gameboardPlayer.getGameBoard());
       gameboardKI.createShipsCPU(shipSelector.getChosenShips());
       gameboardKI.placeShipsCPU();
     }

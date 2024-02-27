@@ -9,7 +9,7 @@ class Ship {
     this.direction = direction;
     this.isSunk = false;
     this.timesHit = 0;
-    this.alignment = "straight";
+    this.alignment = "";
     //keine Ahnung was damit geplant war
     //this.ships = this.ships;
   }
