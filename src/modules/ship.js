@@ -1,7 +1,7 @@
 "use strict";
 
 class Ship {
-  constructor(name, length, id, direction) {
+  constructor(name, length, id, direction, alignment, height) {
     this.name = name;
     this.length = length;
     this.id = id;
@@ -9,7 +9,8 @@ class Ship {
     this.direction = direction;
     this.isSunk = false;
     this.timesHit = 0;
-    this.alignment = "";
+    this.alignment = alignment;
+    this.shipHeight = height;
     //keine Ahnung was damit geplant war
     //this.ships = this.ships;
   }
@@ -28,6 +29,12 @@ class Ship {
   getShipAlignment() {
     return this.alignment;
   }
+  getShipHeight() {
+    return this.shipHeight;
+  }
+
+  // wird nicht benutzt
+  // funktioniert nur für gerade schiffe
   checkShipSunk() {
     this.ships.forEach((ship) => {
       if (ship.timesHit === ship.shipLength()) {

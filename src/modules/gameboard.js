@@ -23,18 +23,47 @@ class Gameboard {
     }
     return board;
   }
-  // wird nicht benutzt
+  // wurde nicht benutzt
+  // komplett umgebaut um alle Schiffsarten zu platzieren
   placeShip(ship, x, y) {
     const id = this.ships.length + 1;
-    const shipClone = new Ship(ship.name, ship.length, id, ship.direction);
-    if (shipClone.direction === "h") {
+    const shipClone = new Ship(
+      ship.name,
+      ship.length,
+      id,
+      ship.direction,
+      ship.alignment,
+      ship.getShipHeight()
+    );
+    if (shipClone.direction === "h" && shipClone.alignment === "straight") {
       for (let i = 0; i < shipClone.getShipLength(); i++) {
         this.gameboard[x][y + i] = shipClone.id;
       }
     }
-    if (shipClone.direction === "v") {
+    if (shipClone.direction === "v" && shipClone.alignment === "straight") {
       for (let i = 0; i < shipClone.getShipLength(); i++) {
         this.gameboard[x + i][y] = shipClone.id;
+      }
+    }
+    if (shipClone.direction === "v" && shipClone.alignment === "rectangle") {
+      for (let i = 0; i < shipClone.getShipLength(); i++) {
+        this.gameboard[x + i][y] = shipClone.id;
+        this.gameboard[x + i][y + 1] = shipClone.id;
+      }
+    }
+    if (shipClone.direction === "h" && shipClone.alignment === "rectangle") {
+      for (let i = 0; i < shipClone.getShipLength(); i++) {
+        this.gameboard[x][y + i] = shipClone.id;
+        this.gameboard[x + 1][y + i] = shipClone.id;
+      }
+    }
+    if (shipClone.direction === "se" && shipClone.alignment === "corner") {
+      console.log("61", shipClone);
+      for (let i = 0; i < shipClone.getShipLength(); i++) {
+        this.gameboard[x + i][y] = shipClone.id;
+      }
+      for (let j = 0; j < shipClone.getShipHeight() + 1; j++) {
+        this.gameboard[x][y + j] = shipClone.id;
       }
     }
     // rausgenommen
@@ -54,18 +83,41 @@ class Gameboard {
        */
     this.ships.push(shipClone);
   }
+  //dazufefügt für CPU random direction
+  setCpuDirection(alignment) {
+    if (alignment === "straight") return Math.random() >= 0.5 ? "h" : "v";
+    if (alignment === "corner") {
+      const randomInt = Math.floor(Math.random() * 4);
+      switch (randomInt) {
+        case 0:
+          return "nw";
+        case 1:
+          return "sw";
+        case 2:
+          return "se";
+        case 3:
+          return "ne";
+        default:
+          console.log("fehler switch");
+      }
+    }
+  }
   // angepasst damit CPU immer die selben Schiffe erstellt wie Player
   //TODO direction Regel erstellen wenn spezial Schiffe
   createShipsCPU(ships) {
     //counter hinzugefügt für ids
     let idCounter = 1;
+
     ships.forEach((ship) => {
+      const shipDirection = this.setCpuDirection(ship.alignment);
       this.ships.push(
         new Ship(
           ship.name,
           ship.length,
           idCounter,
-          Math.random() >= 0.5 ? "h" : "v"
+          shipDirection,
+          ship.alignment,
+          ship.height
         )
       );
       idCounter++;
@@ -112,14 +164,30 @@ class Gameboard {
        */
     }
   }
-  // Regeln für Horizontale Schiffplatzierung dazu
+  // Regeln für alle schiffsarten dazu
   // verallgemeinert damit Abfrage auch für Spielerplatzierung funktioniert
   //TODO anpassen für spezial Schiffe
   isPlacementValid(x, y, ship) {
-    const shipLength = ship.getShipLength();
+    console.log("hello validate", ship);
     x = parseInt(x);
     y = parseInt(y);
-    for (let i = 0; i < shipLength; i++) {
+    if (ship.getShipAlignment() === "straight") {
+      if (this.checkShipsStraight(x, y, ship)) return true;
+      else false;
+    }
+    if (ship.getShipAlignment() === "rectangle") {
+      if (this.checkShipsRectangle(x, y, ship)) return true;
+      else false;
+    }
+    if (ship.getShipAlignment() === "corner") {
+      if (this.checkShipsCorner(x, y, ship)) return true;
+      else false;
+    }
+  }
+  //alle Checks für unterschiedliche Schiffsarten
+  // so gestalltet dass alle schiffe größen anpassbar sind
+  checkShipsStraight(x, y, ship) {
+    for (let i = 0; i < ship.getShipLength(); i++) {
       if (ship.direction === "v") {
         if (x + i > 9) return false;
         if (this.gameboard[x + i][y] !== 0) return false;
@@ -127,6 +195,43 @@ class Gameboard {
       if (ship.direction === "h") {
         if (y + i > 9) return false;
         if (this.gameboard[x][y + i] !== 0) return false;
+      }
+    }
+    return true;
+  }
+  checkShipsRectangle(x, y, ship) {
+    for (let i = 0; i < ship.getShipLength(); i++) {
+      if (ship.direction === "v") {
+        if (x + i > 9 || y + 1 > 9) return false;
+        if (
+          this.gameboard[x + i][y] !== 0 ||
+          this.gameboard[x + i][y + ship.getShipHeight()] !== 0
+        )
+          return false;
+      }
+
+      if (ship.direction === "h") {
+        if (y + i > 9 || x + 1 > 9) return false;
+        if (
+          this.gameboard[x][y + i] !== 0 ||
+          this.gameboard[x + ship.getShipHeight()][y + i] !== 0
+        )
+          return false;
+      }
+    }
+    return true;
+  }
+
+  checkShipsCorner(x, y, ship) {
+    console.log("226", ship.getShipHeight());
+    if (ship.direction === "se" && ship.alignment === "corner") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        if (x + i > 9) return false;
+        if (this.gameboard[x + i][y] !== 0) return false;
+      }
+      for (let j = 0; j < ship.getShipHeight(); j++) {
+        if (y + j > 9) return false;
+        if (this.gameboard[x][y + j] !== 0) return false;
       }
     }
     return true;
