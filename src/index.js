@@ -51,7 +51,7 @@ const setShipPosition = document
     }
   });
 
-let shipNumb = 1;
+let shipNumb = 8;
 let direction = "h";
 const select = document
   .getElementById("selectorBtnContainer")
@@ -76,28 +76,39 @@ const select = document
       if (key === "v") direction = "h";
       shipsSelectorUi.changeVariant(direction);
     }
-
-    if (shipNumb > 7 && shipNumb <= 9) {
+    if (
+      shipNumb >= 7 &&
+      shipNumb <= 9 &&
+      direction !== "se" &&
+      direction !== "sw" &&
+      direction !== "nw" &&
+      direction !== "ne"
+    ) {
+      direction = "se";
+      console.log("set se");
+    }
+    if (
+      (key === "se" || key === "sw" || key === "nw" || key === "ne") &&
+      shipNumb > 7 &&
+      shipNumb <= 9
+    ) {
       if (key === "se") {
         direction = "sw";
-      }
-      if (key === "sw") {
+      } else if (key === "sw") {
         direction = "nw";
-      }
-      if (key === "nw") {
+      } else if (key === "nw") {
         direction = "ne";
-      }
-      if (key === "ne") {
+      } else if (key === "ne") {
         direction = "se";
       }
-      if (key !== "se" && key !== "sw" && key !== "nw" && key !== "ne") {
-        direction = "se";
-      }
+      console.log("direction in", direction);
       shipsSelectorUi.changeVariant(direction);
     }
+    console.log("direction out", direction);
 
     //shipsSelectorUi.createShipFrame(shipNumb);
     if (key === "O") {
+      console.log("direction O", direction);
       if (
         gameboardPlayer.isPlacementValid(
           x,

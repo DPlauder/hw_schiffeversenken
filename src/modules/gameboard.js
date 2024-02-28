@@ -35,6 +35,7 @@ class Gameboard {
       ship.alignment,
       ship.getShipHeight()
     );
+    console.log("placeShip", ship);
     if (shipClone.direction === "h" && shipClone.alignment === "straight") {
       for (let i = 0; i < shipClone.getShipLength(); i++) {
         this.gameboard[x][y + i] = shipClone.id;
@@ -65,6 +66,31 @@ class Gameboard {
         this.gameboard[x][y + j] = shipClone.id;
       }
     }
+    if (shipClone.direction === "sw" && shipClone.alignment === "corner") {
+      for (let i = 0; i < shipClone.getShipLength(); i++) {
+        this.gameboard[x + i][y] = shipClone.id;
+      }
+      for (let j = 0; j < shipClone.getShipHeight() + 1; j++) {
+        this.gameboard[x][y - j] = shipClone.id;
+      }
+    }
+    if (shipClone.direction === "nw" && shipClone.alignment === "corner") {
+      for (let i = 0; i < shipClone.getShipLength(); i++) {
+        this.gameboard[x - i][y] = shipClone.id;
+      }
+      for (let j = 0; j < shipClone.getShipHeight() + 1; j++) {
+        this.gameboard[x][y - j] = shipClone.id;
+      }
+    }
+    if (shipClone.direction === "ne" && shipClone.alignment === "corner") {
+      for (let i = 0; i < shipClone.getShipLength(); i++) {
+        this.gameboard[x - i][y] = shipClone.id;
+      }
+      for (let j = 0; j < shipClone.getShipHeight() + 1; j++) {
+        this.gameboard[x][y + j] = shipClone.id;
+      }
+    }
+
     // rausgenommen
     /* 
     let z = 1;
@@ -227,7 +253,37 @@ class Gameboard {
         if (x + i > 9) return false;
         if (this.gameboard[x + i][y] !== 0) return false;
       }
-      for (let j = 0; j < ship.getShipHeight(); j++) {
+      for (let j = 0; j < ship.getShipHeight() + 1; j++) {
+        if (y + j > 9) return false;
+        if (this.gameboard[x][y + j] !== 0) return false;
+      }
+    }
+    if (ship.direction === "sw" && ship.alignment === "corner") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        if (x + i > 9) return false;
+        if (this.gameboard[x + i][y] !== 0) return false;
+      }
+      for (let j = 0; j < ship.getShipHeight() + 1; j++) {
+        if (y - j < 0) return false;
+        if (this.gameboard[x][y - j] !== 0) return false;
+      }
+    }
+    if (ship.direction === "nw" && ship.alignment === "corner") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        if (x - i < 0) return false;
+        if (this.gameboard[x - i][y] !== 0) return false;
+      }
+      for (let j = 0; j < ship.getShipHeight() + 1; j++) {
+        if (y - j < 0) return false;
+        if (this.gameboard[x][y - j] !== 0) return false;
+      }
+    }
+    if (ship.direction === "ne" && ship.alignment === "corner") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        if (x - i < 0) return false;
+        if (this.gameboard[x - i][y] !== 0) return false;
+      }
+      for (let j = 0; j < ship.getShipHeight() + 1; j++) {
         if (y + j > 9) return false;
         if (this.gameboard[x][y + j] !== 0) return false;
       }
