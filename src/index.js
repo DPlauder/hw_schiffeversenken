@@ -67,27 +67,35 @@ const select = document
     //alignment "straight"
     if (shipNumb <= 7 && direction !== "h" && direction !== "v") {
       direction = "h";
-      //shipsSelectorUi.changeVariant(direction);
+      shipsSelectorUi.changeVariant(direction);
     }
+    shipsSelectorUi.changeVariant(direction);
+
     if ((key === "h" || key == "v") && shipNumb <= 7) {
       if (key === "h") direction = "v";
       if (key === "v") direction = "h";
       shipsSelectorUi.changeVariant(direction);
     }
-    //alignment "corner"
-    if (
-      shipNumb > 7 &&
-      shipNumb <= 9 &&
-      (direction !== "nw" ||
-        direction !== "sw" ||
-        direction !== "se" ||
-        direction !== "ne")
-    ) {
-      direction = "se";
-      console.log("hello se");
-      //shipsSelectorUi.changeVariant(direction);
+
+    if (shipNumb > 7 && shipNumb <= 9) {
+      if (key === "se") {
+        direction = "sw";
+      }
+      if (key === "sw") {
+        direction = "nw";
+      }
+      if (key === "nw") {
+        direction = "ne";
+      }
+      if (key === "ne") {
+        direction = "se";
+      }
+      if (key !== "se" && key !== "sw" && key !== "nw" && key !== "ne") {
+        direction = "se";
+      }
+      shipsSelectorUi.changeVariant(direction);
     }
-    console.log(shipNumb, direction);
+
     //shipsSelectorUi.createShipFrame(shipNumb);
     if (key === "O") {
       if (

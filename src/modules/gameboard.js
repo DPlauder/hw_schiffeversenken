@@ -58,7 +58,6 @@ class Gameboard {
       }
     }
     if (shipClone.direction === "se" && shipClone.alignment === "corner") {
-      console.log("61", shipClone);
       for (let i = 0; i < shipClone.getShipLength(); i++) {
         this.gameboard[x + i][y] = shipClone.id;
       }
@@ -223,7 +222,6 @@ class Gameboard {
   }
 
   checkShipsCorner(x, y, ship) {
-    console.log("226", ship.getShipHeight());
     if (ship.direction === "se" && ship.alignment === "corner") {
       for (let i = 0; i < ship.getShipLength(); i++) {
         if (x + i > 9) return false;
