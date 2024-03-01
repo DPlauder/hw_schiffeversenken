@@ -60,19 +60,118 @@ class ShipSelectorUi {
     const shipClone = template.content.cloneNode(true);
     container.appendChild(shipClone);
   }
-  changeVariant(direction) {
+  changeVariantBtn(direction) {
     const varButton = document.getElementById("variantButton");
-    const display = document.getElementById("shipDisplay");
-    if (direction === "v") {
-      display.style.flexDirection = "column";
-    }
-    if (direction === "h") {
-      display.style.flexDirection = "row";
-    }
-    if (direction === "sw") {
-      console.log("hello swchange");
-    }
     varButton.innerText = direction;
+  }
+  changeVariantDisplay(direction, shipNum) {
+    const varDisplay = document.getElementById("shipDisplay");
+    //straight 1 height
+    if ((direction === "h" || direction === "v") && shipNum < 6) {
+      varDisplay.style.display = "flex";
+      switch (direction) {
+        case "h":
+          varDisplay.style.flexDirection = "row";
+          break;
+        case "v":
+          varDisplay.style.flexDirection = "column";
+          break;
+        default:
+          console.log("error changeVariantDisplay");
+      }
+    }
+    //rectangle
+    if (shipNum === 6) {
+      varDisplay.style.display = "grid";
+      varDisplay.style.gridTemplateColumns = "38px 38px ";
+      varDisplay.style.gridTemplateRows = "38px 38px";
+    }
+    if (shipNum === 7) {
+      varDisplay.style.display = "grid";
+      if (direction === "h") {
+        varDisplay.style.gridTemplateColumns = "38px 38px 38px";
+        varDisplay.style.gridTemplateRows = "38px 38px";
+      }
+      if (direction === "v") {
+        varDisplay.style.gridTemplateColumns = "38px 38px";
+        varDisplay.style.gridTemplateRows = "38px 38px 38px";
+      }
+    }
+
+    // corner ships
+    if (
+      direction === "se" ||
+      direction === "sw" ||
+      direction === "nw" ||
+      direction === "ne"
+    ) {
+      const varShip = document.getElementsByClassName(`ship${shipNum}`);
+      varDisplay.style.display = "grid";
+      if (varDisplay.childElementCount === 4) {
+        varDisplay.style.gridTemplateColumns = "38px 38px ";
+        varDisplay.style.gridTemplateRows = "38px 38px";
+        switch (direction) {
+          case "se":
+            varDisplay.childNodes[1].classList.add("shipPart");
+            varDisplay.childNodes[3].classList.add("shipPart");
+            varDisplay.childNodes[5].classList.add("shipPart");
+            break;
+          case "sw":
+            varDisplay.childNodes[1].classList.add("shipPart");
+            varDisplay.childNodes[3].classList.add("shipPart");
+            varDisplay.childNodes[7].classList.add("shipPart");
+            break;
+          case "nw":
+            varDisplay.childNodes[3].classList.add("shipPart");
+            varDisplay.childNodes[5].classList.add("shipPart");
+            varDisplay.childNodes[7].classList.add("shipPart");
+            break;
+          case "ne":
+            varDisplay.childNodes[1].classList.add("shipPart");
+            varDisplay.childNodes[5].classList.add("shipPart");
+            varDisplay.childNodes[7].classList.add("shipPart");
+            break;
+          default:
+            console.log("error varShip");
+        }
+      }
+      if (varDisplay.childElementCount === 9) {
+        varDisplay.style.gridTemplateColumns = "38px 38px 38px";
+        varDisplay.style.gridTemplateRows = "38px 38px 38p";
+        switch (direction) {
+          case "se":
+            varDisplay.childNodes[1].classList.add("shipPart");
+            varDisplay.childNodes[3].classList.add("shipPart");
+            varDisplay.childNodes[5].classList.add("shipPart");
+            varDisplay.childNodes[7].classList.add("shipPart");
+            varDisplay.childNodes[13].classList.add("shipPart");
+            break;
+          case "sw":
+            varDisplay.childNodes[1].classList.add("shipPart");
+            varDisplay.childNodes[3].classList.add("shipPart");
+            varDisplay.childNodes[5].classList.add("shipPart");
+            varDisplay.childNodes[11].classList.add("shipPart");
+            varDisplay.childNodes[17].classList.add("shipPart");
+            break;
+          case "nw":
+            varDisplay.childNodes[5].classList.add("shipPart");
+            varDisplay.childNodes[11].classList.add("shipPart");
+            varDisplay.childNodes[13].classList.add("shipPart");
+            varDisplay.childNodes[15].classList.add("shipPart");
+            varDisplay.childNodes[17].classList.add("shipPart");
+            break;
+          case "ne":
+            varDisplay.childNodes[1].classList.add("shipPart");
+            varDisplay.childNodes[7].classList.add("shipPart");
+            varDisplay.childNodes[13].classList.add("shipPart");
+            varDisplay.childNodes[15].classList.add("shipPart");
+            varDisplay.childNodes[17].classList.add("shipPart");
+            break;
+          default:
+            console.log("error varShip");
+        }
+      }
+    }
   }
 }
 

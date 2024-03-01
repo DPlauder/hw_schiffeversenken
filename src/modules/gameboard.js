@@ -35,7 +35,6 @@ class Gameboard {
       ship.alignment,
       ship.getShipHeight()
     );
-    console.log("placeShip", ship);
     if (shipClone.direction === "h" && shipClone.alignment === "straight") {
       for (let i = 0; i < shipClone.getShipLength(); i++) {
         this.gameboard[x][y + i] = shipClone.id;

@@ -79,11 +79,10 @@ body {
     border: 1px solid black;
     grid-auto-flow: column;
     #shipDisplay {
-      width: 75%;
+      width: 90%;
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
-      gap: 5px;
     }
   }
   .btnContainer {
@@ -94,7 +93,7 @@ body {
     width: auto;
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 10px;
 
     button {
       width: 100%;
@@ -104,9 +103,5 @@ body {
     background-color: black;
     width: 38px;
     height: 38px;
-  }
-  .ship1 {
-    display: flex;
-    gap: 5px;
   }
 }
