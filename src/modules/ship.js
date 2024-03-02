@@ -32,18 +32,41 @@ class Ship {
   getShipHeight() {
     return this.shipHeight;
   }
-
+  //dazugefügt
+  setShipHits() {
+    this.timesHit++;
+    this.checkShipSunk();
+  }
+  getShipHits() {
+    return this.setShipHits;
+  }
   // wird nicht benutzt
   // funktioniert nur für gerade schiffe
   checkShipSunk() {
-    this.ships.forEach((ship) => {
-      if (ship.timesHit === ship.shipLength()) {
-        ship.isSunk = true;
-      }
-      if (ship.isSunk) {
-        console.log("Du hast " + ship.name + " zum sinken gebracht");
-      }
-    });
+    //komplett rausgenommen, hat er sowieso nicht benutzt
+    //genau das gleiche schon in der gameboard attackship abgefragt
+    //keine ahnung wofür er die forEach gebraucht hat,
+    //this.ships hat keine Schiffe erhalten und macht auch null Sinn
+    // this.ships.forEach((ship) => {
+    //   console.log(this.height, this.length, this.alignment);
+    //   if (ship.timesHit === ship.shipLength()) {
+    //     ship.isSunk = true;
+    //   }
+    //   if (ship.isSunk) {
+    //     console.log("Du hast " + ship.name + " zum sinken gebracht");
+    //   }
+    // });
+    if (this.alignment === "straight") {
+      if (this.timesHit >= this.length) this.isSunk = true;
+    }
+    if (this.alignment === "rectangle")
+      if (this.timesHit === this.length * 2) this.isSunk = true;
+    if (this.alignment === "corner")
+      if (this.timesHit === this.length + this.shipHeight) this.isSunk = true;
+  }
+  //dazugefügt für bessere Kontrolle
+  getShipSunk() {
+    return this.isSunk;
   }
 }
 

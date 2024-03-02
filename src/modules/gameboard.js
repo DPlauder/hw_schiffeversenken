@@ -25,7 +25,7 @@ class Gameboard {
   }
   // wurde nicht benutzt
   // komplett umgebaut um alle Schiffsarten zu platzieren
-  placeShip(ship, x, y) {
+  placeShipPlayer(ship, x, y) {
     const id = this.ships.length + 1;
     const shipClone = new Ship(
       ship.name,
@@ -35,60 +35,7 @@ class Gameboard {
       ship.alignment,
       ship.getShipHeight()
     );
-    if (shipClone.direction === "h" && shipClone.alignment === "straight") {
-      for (let i = 0; i < shipClone.getShipLength(); i++) {
-        this.gameboard[x][y + i] = shipClone.id;
-      }
-    }
-    if (shipClone.direction === "v" && shipClone.alignment === "straight") {
-      for (let i = 0; i < shipClone.getShipLength(); i++) {
-        this.gameboard[x + i][y] = shipClone.id;
-      }
-    }
-    if (shipClone.direction === "v" && shipClone.alignment === "rectangle") {
-      for (let i = 0; i < shipClone.getShipLength(); i++) {
-        this.gameboard[x + i][y] = shipClone.id;
-        this.gameboard[x + i][y + 1] = shipClone.id;
-      }
-    }
-    if (shipClone.direction === "h" && shipClone.alignment === "rectangle") {
-      for (let i = 0; i < shipClone.getShipLength(); i++) {
-        this.gameboard[x][y + i] = shipClone.id;
-        this.gameboard[x + 1][y + i] = shipClone.id;
-      }
-    }
-    if (shipClone.direction === "se" && shipClone.alignment === "corner") {
-      for (let i = 0; i < shipClone.getShipLength(); i++) {
-        this.gameboard[x + i][y] = shipClone.id;
-      }
-      for (let j = 0; j < shipClone.getShipHeight() + 1; j++) {
-        this.gameboard[x][y + j] = shipClone.id;
-      }
-    }
-    if (shipClone.direction === "sw" && shipClone.alignment === "corner") {
-      for (let i = 0; i < shipClone.getShipLength(); i++) {
-        this.gameboard[x + i][y] = shipClone.id;
-      }
-      for (let j = 0; j < shipClone.getShipHeight() + 1; j++) {
-        this.gameboard[x][y - j] = shipClone.id;
-      }
-    }
-    if (shipClone.direction === "nw" && shipClone.alignment === "corner") {
-      for (let i = 0; i < shipClone.getShipLength(); i++) {
-        this.gameboard[x - i][y] = shipClone.id;
-      }
-      for (let j = 0; j < shipClone.getShipHeight() + 1; j++) {
-        this.gameboard[x][y - j] = shipClone.id;
-      }
-    }
-    if (shipClone.direction === "ne" && shipClone.alignment === "corner") {
-      for (let i = 0; i < shipClone.getShipLength(); i++) {
-        this.gameboard[x - i][y] = shipClone.id;
-      }
-      for (let j = 0; j < shipClone.getShipHeight() + 1; j++) {
-        this.gameboard[x][y + j] = shipClone.id;
-      }
-    }
+    this.shipPlacement(shipClone, x, y);
 
     // rausgenommen
     /* 
@@ -105,11 +52,68 @@ class Gameboard {
         }
       }
        */
-    this.ships.push(shipClone);
+  }
+  shipPlacement(ship, x, y) {
+    console.log("hello placement", ship);
+    if (ship.direction === "h" && ship.alignment === "straight") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        this.gameboard[x][y + i] = ship.id;
+      }
+    }
+    if (ship.direction === "v" && ship.alignment === "straight") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        this.gameboard[x + i][y] = ship.id;
+      }
+    }
+    if (ship.direction === "v" && ship.alignment === "rectangle") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        this.gameboard[x + i][y] = ship.id;
+        this.gameboard[x + i][y + 1] = ship.id;
+      }
+    }
+    if (ship.direction === "h" && ship.alignment === "rectangle") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        this.gameboard[x][y + i] = ship.id;
+        this.gameboard[x + 1][y + i] = ship.id;
+      }
+    }
+    if (ship.direction === "se" && ship.alignment === "corner") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        this.gameboard[x + i][y] = ship.id;
+      }
+      for (let j = 0; j < ship.getShipHeight() + 1; j++) {
+        this.gameboard[x][y + j] = ship.id;
+      }
+    }
+    if (ship.direction === "sw" && ship.alignment === "corner") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        this.gameboard[x + i][y] = ship.id;
+      }
+      for (let j = 0; j < ship.getShipHeight() + 1; j++) {
+        this.gameboard[x][y - j] = ship.id;
+      }
+    }
+    if (ship.direction === "nw" && ship.alignment === "corner") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        this.gameboard[x - i][y] = ship.id;
+      }
+      for (let j = 0; j < ship.getShipHeight() + 1; j++) {
+        this.gameboard[x][y - j] = ship.id;
+      }
+    }
+    if (ship.direction === "ne" && ship.alignment === "corner") {
+      for (let i = 0; i < ship.getShipLength(); i++) {
+        this.gameboard[x - i][y] = ship.id;
+      }
+      for (let j = 0; j < ship.getShipHeight() + 1; j++) {
+        this.gameboard[x][y + j] = ship.id;
+      }
+    }
   }
   //dazufefügt für CPU random direction
   setCpuDirection(alignment) {
-    if (alignment === "straight") return Math.random() >= 0.5 ? "h" : "v";
+    if (alignment === "straight" || alignment === "rectangle")
+      return Math.random() >= 0.5 ? "h" : "v";
     if (alignment === "corner") {
       const randomInt = Math.floor(Math.random() * 4);
       switch (randomInt) {
@@ -174,8 +178,9 @@ class Gameboard {
       do {
         x = Math.floor(Math.random() * 10);
         y = Math.floor(Math.random() * 10);
+        console.log(x, y);
       } while (!this.isPlacementValid(x, y, ship));
-      this.setShipPositionCpu(x, y, ship);
+      this.shipPlacement(ship, x, y);
       /* 
       for (let i = 0; i < ship.shipLength(); i++) {
         if (x + i > 9) {
@@ -190,9 +195,7 @@ class Gameboard {
   }
   // Regeln für alle schiffsarten dazu
   // verallgemeinert damit Abfrage auch für Spielerplatzierung funktioniert
-  //TODO anpassen für spezial Schiffe
   isPlacementValid(x, y, ship) {
-    console.log("hello validate", ship);
     x = parseInt(x);
     y = parseInt(y);
     if (ship.getShipAlignment() === "straight") {
@@ -299,13 +302,15 @@ class Gameboard {
       return false;
     }
     if (ship) {
-      ship.timesHit++;
+      //geändert mit setter und direkten Zugriff verhindert
+      ship.setShipHits();
       //setter Methode als Ersatz
       //this.gameboard[x][y] = "Treffer";
       this.setGameBoard(x, y, "T");
-
-      if (ship.timesHit === ship.getShipLength()) {
-        ship.isSunk = true;
+      //geändert mit getter und true or false anstelle von Abfrage Länge
+      if (ship.getShipSunk()) {
+        //rausgenommen und vereinfacht in der if mit getter
+        //ship.isSunk = true;
         console.log(`Du hast ${ship.name} versenkt!`);
         return "Versenkt";
       } else {
@@ -328,6 +333,7 @@ class Gameboard {
   getGameBoard() {
     return this.gameboard;
   }
+  //TODO anpassung spezielle Schiffe
   checkWin() {
     return this.ships.every((ship) => ship.isSunk === true);
   }

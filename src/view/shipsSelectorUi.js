@@ -93,7 +93,7 @@ class ShipSelectorUi {
         varDisplay.style.gridTemplateRows = "38px 38px";
       }
       if (direction === "v") {
-        varDisplay.style.gridTemplateColumns = "38px 38px";
+        varDisplay.style.gridTemplateColumns = "38px  38px";
         varDisplay.style.gridTemplateRows = "38px 38px 38px";
       }
     }

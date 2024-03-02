@@ -111,7 +111,7 @@ const select = document
         )
       ) {
         shipSelector.addChosenShips(shipNumb);
-        gameboardPlayer.placeShip(
+        gameboardPlayer.placeShipPlayer(
           shipSelector.getchosenShip(shipNumb, direction),
           x,
           y
@@ -120,11 +120,12 @@ const select = document
       } else {
         console.log("cant place ship there");
       }
-      console.log(gameboardPlayer.getGameBoard());
     }
     if (key === "Start") {
       gameboardKI.createShipsCPU(shipSelector.getChosenShips());
+      console.log(gameboardKI.ships);
       gameboardKI.placeShipsCPU();
+      gameBoardViewKi.showShips(gameboardKI.getGameBoard());
     }
   });
 
