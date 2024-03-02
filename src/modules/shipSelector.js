@@ -32,7 +32,7 @@ class ShipSelector {
     });
   }
   // original Object wird überschrieben
-  //FIXME Schiffe direkt in getchosenShips initieren, erspart die initateShips
+  //FIXME für reconstruct Schiffe direkt in getchosenShips initieren, erspart die initateShips
   getchosenShip(shipsSelector, direction) {
     const ship = this.shipsObjects[shipsSelector - 1];
     //FIXME Fehler Ship copy

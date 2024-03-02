@@ -104,22 +104,29 @@ const select = document
     shipsSelectorUi.changeVariantDisplay(direction, shipNumb);
     if (key === "O") {
       if (
-        gameboardPlayer.isPlacementValid(
-          x,
-          y,
-          shipSelector.getchosenShip(shipNumb, direction)
-        )
+        !gameboardPlayer.checkMaxShips(shipSelector.getchosenShip(shipNumb))
       ) {
-        shipSelector.addChosenShips(shipNumb);
-        gameboardPlayer.placeShipPlayer(
-          shipSelector.getchosenShip(shipNumb, direction),
-          x,
-          y
-        );
-        gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
+        if (
+          gameboardPlayer.isPlacementValid(
+            x,
+            y,
+            shipSelector.getchosenShip(shipNumb, direction)
+          )
+        ) {
+          shipSelector.addChosenShips(shipNumb);
+          gameboardPlayer.placeShipPlayer(
+            shipSelector.getchosenShip(shipNumb, direction),
+            x,
+            y
+          );
+          gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
+        } else {
+          console.log("cant place ship there");
+        }
       } else {
-        console.log("cant place ship there");
+        console.log("too many ships");
       }
+      console.log(gameboardPlayer.counter);
     }
     if (key === "Start") {
       gameboardKI.createShipsCPU(shipSelector.getChosenShips());

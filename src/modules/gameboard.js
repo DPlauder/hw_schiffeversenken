@@ -7,6 +7,7 @@ class Gameboard {
     //gameboard init mit Gameboard
     this.gameboard = this.createGameboard();
     this.ships = [];
+    //zugefügt für max shiffe
     this.counter = 0;
   }
 
@@ -23,8 +24,26 @@ class Gameboard {
     }
     return board;
   }
+  //dazu abfrage max schiffe
+  checkMaxShips(ship) {
+    if (ship.alignment === "straight")
+      if (this.counter + ship.getShipLength() > 30) return true;
+    if (ship.alignment === "rectangle")
+      if (this.counter + ship.getShipLength() * 2 > 30) return true;
+    if (ship.alignment === "corner")
+      if (this.counter + (ship.getShipLength() + ship.getShipHeight()) > 30)
+        return true;
+    return false;
+  }
+  addShipCounter(ship) {
+    if (ship.alignment === "straight") this.counter += ship.getShipLength();
+    if (ship.alignment === "rectangle")
+      this.counter += ship.getShipLength() * 2;
+    if (ship.alignment === "corner")
+      this.counter += ship.getShipLength() + ship.getShipHeight();
+  }
   // wurde nicht benutzt
-  // komplett umgebaut um alle Schiffsarten zu platzieren
+  // komplett umgebaut um alle Schiffsarten zu platzieren + counter
   placeShipPlayer(ship, x, y) {
     const id = this.ships.length + 1;
     const shipClone = new Ship(
@@ -36,6 +55,7 @@ class Gameboard {
       ship.getShipHeight()
     );
     this.shipPlacement(shipClone, x, y);
+    this.addShipCounter(shipClone);
 
     // rausgenommen
     /* 
