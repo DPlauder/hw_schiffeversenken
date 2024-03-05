@@ -6,6 +6,7 @@ import { Player } from "./modules/player.js";
 import { GameboardView } from "./view/gameboardview.js";
 import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
 import { ShipSelector } from "./modules/shipSelector.js";
+import { Game } from "./Game.js";
 
 /* rausgenommen da nichtmehr gebraucht
 //Testschiffe;
@@ -37,133 +38,51 @@ const gameBoardViewKi = new GameboardView("boardKi");
 const shipsSelectorUi = new ShipSelectorUi();
 shipsSelectorUi.createShipFrame(1);
 
+//GameHandler init
+const game = new Game(
+  gameboardPlayer,
+  gameboardKI,
+  shipSelector,
+  gameBoardViewPlayer,
+  gameBoardViewKi,
+  shipsSelectorUi
+);
+
 //zum testen geadded <<<<<<<<<<<<===================================
 //Schiff Auswahl Phase 1
 let x = 11;
 let y = 11;
 document.getElementById("boardPlayer").addEventListener("click", (e) => {
-  const key = e.target.id;
-  if (key < 10) {
-    (x = 0), (y = parseInt(key));
-  } else {
-    (x = parseInt(key[0])), (y = parseInt(key[1]));
-  }
-  console.log(x, y);
+  game.handleShipCordClick(e);
 });
-
-let shipNumb = 1;
-let direction = "h";
 
 document
   .getElementById("selectorBtnContainer")
   .addEventListener("click", (e) => {
-    const key = e.target.textContent;
-
-    if (key === ">" && shipNumb < 9) {
-      shipNumb++;
-    }
-    if (key === "<" && shipNumb > 1) {
-      shipNumb--;
-    }
-    //alignment "straight"
-    if (shipNumb <= 7 && direction !== "h" && direction !== "v") {
-      direction = "h";
-    }
-
-    if ((key === "h" || key == "v") && shipNumb <= 7) {
-      if (key === "h") direction = "v";
-      if (key === "v") direction = "h";
-    }
-    if (
-      shipNumb > 7 &&
-      shipNumb <= 9 &&
-      direction !== "se" &&
-      direction !== "sw" &&
-      direction !== "nw" &&
-      direction !== "ne"
-    ) {
-      direction = "se";
-    }
-    if (
-      (key === "se" || key === "sw" || key === "nw" || key === "ne") &&
-      shipNumb > 7 &&
-      shipNumb <= 9
-    ) {
-      if (key === "se") {
-        direction = "sw";
-      } else if (key === "sw") {
-        direction = "nw";
-      } else if (key === "nw") {
-        direction = "ne";
-      } else if (key === "ne") {
-        direction = "se";
-      }
-    }
-    shipsSelectorUi.createShipFrame(shipNumb);
-    shipsSelectorUi.changeVariantBtn(direction);
-    shipsSelectorUi.changeVariantDisplay(direction, shipNumb);
-    if (key === "O") {
-      if (
-        !gameboardPlayer.checkMaxShips(shipSelector.getchosenShip(shipNumb))
-      ) {
-        if (
-          gameboardPlayer.isPlacementValid(
-            x,
-            y,
-            shipSelector.getchosenShip(shipNumb, direction)
-          )
-        ) {
-          shipSelector.addChosenShips(shipNumb);
-          gameboardPlayer.placeShipPlayer(
-            shipSelector.getchosenShip(shipNumb, direction),
-            x,
-            y
-          );
-          gameBoardViewPlayer.showShips(gameboardPlayer.getGameBoard());
-        } else {
-          console.log("cant place ship there");
-        }
-      } else {
-        console.log("too many ships");
-      }
-      console.log(gameboardPlayer.counter);
-    }
-    if (key === "Start") {
-      gameboardKI.createShipsCPU(shipSelector.getChosenShips());
-      console.log(gameboardKI.ships);
-      gameboardKI.placeShipsCPU();
-      gameBoardViewKi.showShips(gameboardKI.getGameBoard());
-      document
-        .getElementById("boardPlayer")
-        .removeEventListener("click", e, true);
-      playGame();
-    }
+    game.handleBtnsClick(e);
   });
 
 // Game Phase 2
 //shoot on CPU Board
-function playGame() {
-  document.getElementById("boardKi").addEventListener("click", (e) => {
-    const targetCell = e.target.id;
-    if (targetCell < 10) {
-      player.attackEnemy(0, targetCell);
-    } else {
-      player.attackEnemy(targetCell[0], targetCell[1]);
-    }
-    gameBoardViewKi.updateViewBoard(gameboardKI.getGameBoard());
 
-    //CPU Shots
-    gameboardPlayer.attackShip(
-      gameboardPlayer.getRandCoordinate(),
-      gameboardPlayer.getRandCoordinate()
-    );
-    console.log("KI", gameboardKI.getGameBoard());
-    console.log("Player", gameboardPlayer.getGameBoard());
-    gameBoardViewPlayer.updateViewBoard(gameboardPlayer.getGameBoard());
+document.getElementById("boardKi").addEventListener("click", (e) => {
+  const targetCell = e.target.id;
+  if (targetCell < 10) {
+    player.attackEnemy(0, targetCell);
+  } else {
+    player.attackEnemy(targetCell[0], targetCell[1]);
+  }
+  gameBoardViewKi.updateViewBoard(gameboardKI.getGameBoard());
 
-    if (gameboardKI.checkWin())
-      console.log("Spieler hat alle Schiffe versenkt");
-    if (gameboardPlayer.checkWin())
-      console.log("CPU hat alle Schiffe versenkt");
-  });
-}
+  //CPU Shots
+  gameboardPlayer.attackShip(
+    gameboardPlayer.getRandCoordinate(),
+    gameboardPlayer.getRandCoordinate()
+  );
+  console.log("KI", gameboardKI.getGameBoard());
+  console.log("Player", gameboardPlayer.getGameBoard());
+  gameBoardViewPlayer.updateViewBoard(gameboardPlayer.getGameBoard());
+
+  if (gameboardKI.checkWin()) console.log("Spieler hat alle Schiffe versenkt");
+  if (gameboardPlayer.checkWin()) console.log("CPU hat alle Schiffe versenkt");
+});
