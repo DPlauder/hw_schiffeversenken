@@ -50,5 +50,6 @@ class ShipSelector {
   addChosenShips(shipsSelector) {
     this.chosenShips.push(this.ships[shipsSelector - 1]);
   }
+  handleButtonClick(e) {}
 }
 export { ShipSelector };

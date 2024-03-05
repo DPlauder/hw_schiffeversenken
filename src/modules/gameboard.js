@@ -56,6 +56,7 @@ class Gameboard {
     );
     this.shipPlacement(shipClone, x, y);
     this.addShipCounter(shipClone);
+    this.ships.push(shipClone);
 
     // rausgenommen
     /* 
@@ -74,7 +75,6 @@ class Gameboard {
        */
   }
   shipPlacement(ship, x, y) {
-    console.log("hello placement", ship);
     if (ship.direction === "h" && ship.alignment === "straight") {
       for (let i = 0; i < ship.getShipLength(); i++) {
         this.gameboard[x][y + i] = ship.id;
@@ -190,6 +190,8 @@ class Gameboard {
 
   placeShipsCPU() {
     for (const ship of this.ships) {
+      let x = 11;
+      let y = 11;
       do {
         x = this.getRandCoordinate();
         y = this.getRandCoordinate();
@@ -341,7 +343,6 @@ class Gameboard {
       //setter Ersatz
       //this.gameboard[x][y] = "X";
       this.setGameBoard(x, y, "X");
-
       return "Verfehlt";
     }
   }
@@ -353,6 +354,7 @@ class Gameboard {
     return this.gameboard;
   }
   checkWin() {
+    console.log(this.ships);
     return this.ships.every((ship) => ship.isSunk === true);
   }
 }

@@ -38,23 +38,23 @@ const shipsSelectorUi = new ShipSelectorUi();
 shipsSelectorUi.createShipFrame(1);
 
 //zum testen geadded <<<<<<<<<<<<===================================
-//Schiff AuswahlPhase
+//Schiff Auswahl Phase 1
 let x = 11;
 let y = 11;
-const setShipPosition = document
-  .getElementById("boardPlayer")
-  .addEventListener("click", (e) => {
-    const key = e.target.id;
-    if (key < 10) {
-      (x = 0), (y = parseInt(key));
-    } else {
-      (x = parseInt(key[0])), (y = parseInt(key[1]));
-    }
-  });
+document.getElementById("boardPlayer").addEventListener("click", (e) => {
+  const key = e.target.id;
+  if (key < 10) {
+    (x = 0), (y = parseInt(key));
+  } else {
+    (x = parseInt(key[0])), (y = parseInt(key[1]));
+  }
+  console.log(x, y);
+});
 
 let shipNumb = 1;
 let direction = "h";
-const select = document
+
+document
   .getElementById("selectorBtnContainer")
   .addEventListener("click", (e) => {
     const key = e.target.textContent;
@@ -133,12 +133,17 @@ const select = document
       console.log(gameboardKI.ships);
       gameboardKI.placeShipsCPU();
       gameBoardViewKi.showShips(gameboardKI.getGameBoard());
+      document
+        .getElementById("boardPlayer")
+        .removeEventListener("click", e, true);
+      playGame();
     }
   });
 
-const shootBoard = document
-  .getElementById("boardKi")
-  .addEventListener("click", (e) => {
+// Game Phase 2
+//shoot on CPU Board
+function playGame() {
+  document.getElementById("boardKi").addEventListener("click", (e) => {
     const targetCell = e.target.id;
     if (targetCell < 10) {
       player.attackEnemy(0, targetCell);
@@ -146,5 +151,19 @@ const shootBoard = document
       player.attackEnemy(targetCell[0], targetCell[1]);
     }
     gameBoardViewKi.updateViewBoard(gameboardKI.getGameBoard());
-    if (gameboardKI.checkWin()) console.log("Alle Schiffe versenkt");
+
+    //CPU Shots
+    gameboardPlayer.attackShip(
+      gameboardPlayer.getRandCoordinate(),
+      gameboardPlayer.getRandCoordinate()
+    );
+    console.log("KI", gameboardKI.getGameBoard());
+    console.log("Player", gameboardPlayer.getGameBoard());
+    gameBoardViewPlayer.updateViewBoard(gameboardPlayer.getGameBoard());
+
+    if (gameboardKI.checkWin())
+      console.log("Spieler hat alle Schiffe versenkt");
+    if (gameboardPlayer.checkWin())
+      console.log("CPU hat alle Schiffe versenkt");
   });
+}
