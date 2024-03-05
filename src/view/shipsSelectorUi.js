@@ -32,7 +32,7 @@ class ShipSelectorUi {
     const sliderBtnOk = document.createElement("button");
     sliderBtnOk.classList.add("sliderBtnOk");
     btnContainer.appendChild(sliderBtnOk);
-    sliderBtnOk.innerHTML = "O";
+    sliderBtnOk.innerHTML = "Place";
 
     const sliderBtnRight = document.createElement("button");
     sliderBtnRight.classList.add("sliderBtnRight");

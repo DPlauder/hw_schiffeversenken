@@ -1,11 +1,8 @@
+// Komplette restructure mit eigenem Game(Handler)
 // .js Endungen dazu wegen Webpack + use strict
 "use strict";
 import "./styles.scss";
-import { Gameboard } from "./modules/gameboard.js";
-import { Player } from "./modules/player.js";
-import { GameboardView } from "./view/gameboardview.js";
-import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
-import { ShipSelector } from "./modules/shipSelector.js";
+
 import { Game } from "./Game.js";
 
 /* rausgenommen da nichtmehr gebraucht
@@ -25,30 +22,9 @@ gameboardKI.createShipsCPU(ships);
 gameboardKI.placeShipsCPU();
 */
 
-// Backend init
-//let declarations schreibgeschützt gesetzt(const)
-const gameboardPlayer = new Gameboard();
-const gameboardKI = new Gameboard();
-const shipSelector = new ShipSelector();
-const player = new Player("Marko", gameboardKI);
-
-//UI init
-const gameBoardViewPlayer = new GameboardView("boardPlayer");
-const gameBoardViewKi = new GameboardView("boardKi");
-const shipsSelectorUi = new ShipSelectorUi();
-shipsSelectorUi.createShipFrame(1);
-
 //GameHandler init
-const game = new Game(
-  gameboardPlayer,
-  gameboardKI,
-  shipSelector,
-  gameBoardViewPlayer,
-  gameBoardViewKi,
-  shipsSelectorUi
-);
+const game = new Game();
 
-//zum testen geadded <<<<<<<<<<<<===================================
 //Schiff Auswahl Phase 1
 document
   .getElementById("boardPlayer")
@@ -79,21 +55,8 @@ function handleClickBtns(e) {
 //shoot on CPU Board
 
 document.getElementById("boardKi").addEventListener("click", (e) => {
-  const targetCell = e.target.id;
-  if (targetCell < 10) {
-    player.attackEnemy(0, targetCell);
-  } else {
-    player.attackEnemy(targetCell[0], targetCell[1]);
-  }
-  gameBoardViewKi.updateViewBoard(gameboardKI.getGameBoard());
-
-  //CPU Shots
-  gameboardPlayer.attackShip(
-    gameboardPlayer.getRandCoordinate(),
-    gameboardPlayer.getRandCoordinate()
-  );
-  gameBoardViewPlayer.updateViewBoard(gameboardPlayer.getGameBoard());
-
-  if (gameboardKI.checkWin()) console.log("Spieler hat alle Schiffe versenkt");
-  if (gameboardPlayer.checkWin()) console.log("CPU hat alle Schiffe versenkt");
+  //player shots
+  game.playerShoot(e);
+  //CPU shots
+  game.cpuShoot();
 });

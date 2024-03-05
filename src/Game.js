@@ -1,18 +1,22 @@
+import { Gameboard } from "./modules/gameboard.js";
+import { Player } from "./modules/player.js";
+import { GameboardView } from "./view/gameboardview.js";
+import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
+import { ShipSelector } from "./modules/shipSelector.js";
+
 class Game {
-  constructor(
-    gameboardPlayer,
-    gameboardKI,
-    shipSelector,
-    gameBoardViewPlayer,
-    gameBoardViewKi,
-    shipsSelectorUi
-  ) {
-    this.gameboardPlayer = gameboardPlayer;
-    this.gameboardKI = gameboardKI;
-    this.shipSelector = shipSelector;
-    this.gameBoardViewPlayer = gameBoardViewPlayer;
-    this.gameBoardViewKi = gameBoardViewKi;
-    this.shipsSelectorUi = shipsSelectorUi;
+  constructor() {
+    // backend init
+    this.gameboardPlayer = new Gameboard();
+    this.gameboardKI = new Gameboard();
+    this.shipSelector = new ShipSelector();
+    this.player = new Player("Marko", this.gameboardKI);
+    this.gameBoardViewPlayer = new GameboardView("boardPlayer");
+    //frontend init
+    this.gameBoardViewKi = new GameboardView("boardKi");
+    this.shipsSelectorUi = new ShipSelectorUi();
+    this.shipsSelectorUi.createShipFrame(1);
+
     this.x = 11;
     this.y = 11;
     this.shipNumb = 1;
@@ -78,7 +82,7 @@ class Game {
     this.shipsSelectorUi.createShipFrame(this.shipNumb);
     this.shipsSelectorUi.changeVariantBtn(this.direction);
     this.shipsSelectorUi.changeVariantDisplay(this.direction, this.shipNumb);
-    if (key === "O") {
+    if (key === "Place") {
       if (
         !this.gameboardPlayer.checkMaxShips(
           this.shipSelector.getchosenShip(this.shipNumb)
@@ -114,15 +118,32 @@ class Game {
   handleStart() {
     this.gameboardKI.createShipsCPU(this.shipSelector.getChosenShips());
     this.gameboardKI.placeShipsCPU();
-    this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
+    //zum testen
+    //this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
     this.phaseOne = false;
   }
   getPhaseOne() {
     return this.phaseOne;
   }
 
-  playerShoot() {}
-  cpuShoot() {}
+  playerShoot(e) {
+    const targetCell = e.target.id;
+    if (targetCell < 10) {
+      this.player.attackEnemy(0, targetCell);
+    } else {
+      this.player.attackEnemy(targetCell[0], targetCell[1]);
+    }
+    this.gameBoardViewKi.updateViewBoard(this.gameboardKI.getGameBoard());
+  }
+  cpuShoot() {
+    this.gameboardPlayer.attackShip(
+      this.gameboardPlayer.getRandCoordinate(),
+      this.gameboardPlayer.getRandCoordinate()
+    );
+    this.gameBoardViewPlayer.updateViewBoard(
+      this.gameboardPlayer.getGameBoard()
+    );
+  }
   playGame() {}
 }
 
