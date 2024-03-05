@@ -17,8 +17,9 @@ class Game {
     this.y = 11;
     this.shipNumb = 1;
     this.direction = "h";
+    this.phaseOne = true;
   }
-  handleShipCordClick(e) {
+  handleShipCoordClick(e) {
     const key = e.target.id;
     if (key < 10) {
       (this.x = 0), (this.y = parseInt(key));
@@ -114,6 +115,10 @@ class Game {
     this.gameboardKI.createShipsCPU(this.shipSelector.getChosenShips());
     this.gameboardKI.placeShipsCPU();
     this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
+    this.phaseOne = false;
+  }
+  getPhaseOne() {
+    return this.phaseOne;
   }
 
   playerShoot() {}

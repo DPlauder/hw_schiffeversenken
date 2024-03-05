@@ -59,7 +59,6 @@ class ShipSelectorUi {
     const template = document.getElementById(`ship${shipNumber}`);
     const shipClone = template.content.cloneNode(true);
     container.appendChild(shipClone);
-    console.log(shipNumber);
   }
   changeVariantBtn(direction) {
     const varButton = document.getElementById("variantButton");

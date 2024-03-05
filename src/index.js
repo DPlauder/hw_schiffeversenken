@@ -50,17 +50,30 @@ const game = new Game(
 
 //zum testen geadded <<<<<<<<<<<<===================================
 //Schiff Auswahl Phase 1
-let x = 11;
-let y = 11;
-document.getElementById("boardPlayer").addEventListener("click", (e) => {
-  game.handleShipCordClick(e);
-});
+document
+  .getElementById("boardPlayer")
+  .addEventListener("click", handleClickCoords);
 
+function handleClickCoords(e) {
+  game.handleShipCoordClick(e);
+  if (!game.getPhaseOne()) {
+    document
+      .getElementById("boardPlayer")
+      .removeEventListener("click", handleClickCoords);
+  }
+}
 document
   .getElementById("selectorBtnContainer")
-  .addEventListener("click", (e) => {
-    game.handleBtnsClick(e);
-  });
+  .addEventListener("click", handleClickBtns);
+
+function handleClickBtns(e) {
+  game.handleBtnsClick(e);
+  if (!game.getPhaseOne()) {
+    document
+      .getElementById("selectorBtnContainer")
+      .removeEventListener("click", handleClickBtns);
+  }
+}
 
 // Game Phase 2
 //shoot on CPU Board
@@ -79,8 +92,6 @@ document.getElementById("boardKi").addEventListener("click", (e) => {
     gameboardPlayer.getRandCoordinate(),
     gameboardPlayer.getRandCoordinate()
   );
-  console.log("KI", gameboardKI.getGameBoard());
-  console.log("Player", gameboardPlayer.getGameBoard());
   gameBoardViewPlayer.updateViewBoard(gameboardPlayer.getGameBoard());
 
   if (gameboardKI.checkWin()) console.log("Spieler hat alle Schiffe versenkt");

@@ -195,7 +195,6 @@ class Gameboard {
       do {
         x = this.getRandCoordinate();
         y = this.getRandCoordinate();
-        console.log(x, y);
       } while (!this.isPlacementValid(x, y, ship));
       this.shipPlacement(ship, x, y);
       /* 
