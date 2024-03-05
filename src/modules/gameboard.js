@@ -151,11 +151,9 @@ class Gameboard {
     }
   }
   // angepasst damit CPU immer die selben Schiffe erstellt wie Player
-  //TODO direction Regel erstellen wenn spezial Schiffe
   createShipsCPU(ships) {
     //counter hinzugefügt für ids
     let idCounter = 1;
-
     ships.forEach((ship) => {
       const shipDirection = this.setCpuDirection(ship.alignment);
       this.ships.push(
@@ -181,23 +179,20 @@ class Gameboard {
     //this.ships.push(carrier, battleship, cruiser, submarine, destroyer);
     //console.log(this.ships);
   }
-  // Funktion ausgelagert von placeShips & geändert damit schiffe horizontal oder vertikal
-  //TODO anpassen für spezial Schiffe
-  setShipPositionCpu(x, y, ship) {
-    const shiplength = ship.getShipLength();
-    for (let i = 0; i < shiplength; i++) {
-      if (ship.direction == "h") this.gameboard[x][y + i] = ship.id;
-      if (ship.direction == "v") this.gameboard[x + i][y] = ship.id;
-    }
-  }
+  // rausgenommen und wird jetzt für Spieler und CPU in einem erstellt
+  // setShipPositionCpu(x, y, ship) {
+  //   const shiplength = ship.getShipLength();
+  //   for (let i = 0; i < shiplength; i++) {
+  //     if (ship.direction == "h") this.gameboard[x][y + i] = ship.id;
+  //     if (ship.direction == "v") this.gameboard[x + i][y] = ship.id;
+  //   }
+  // }
 
   placeShipsCPU() {
     for (const ship of this.ships) {
-      let x = 0;
-      let y = 0;
       do {
-        x = Math.floor(Math.random() * 10);
-        y = Math.floor(Math.random() * 10);
+        x = this.getRandCoordinate();
+        y = this.getRandCoordinate();
         console.log(x, y);
       } while (!this.isPlacementValid(x, y, ship));
       this.shipPlacement(ship, x, y);
@@ -312,6 +307,10 @@ class Gameboard {
     }
     return true;
   }
+  // dazu für random Cords
+  getRandCoordinate() {
+    return Math.floor(Math.random() * 10);
+  }
 
   attackShip(x, y) {
     const currentItem = this.gameboard[x][y];
@@ -353,7 +352,6 @@ class Gameboard {
   getGameBoard() {
     return this.gameboard;
   }
-  //TODO anpassung spezielle Schiffe
   checkWin() {
     return this.ships.every((ship) => ship.isSunk === true);
   }

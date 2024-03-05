@@ -38,6 +38,7 @@ const shipsSelectorUi = new ShipSelectorUi();
 shipsSelectorUi.createShipFrame(1);
 
 //zum testen geadded <<<<<<<<<<<<===================================
+//Schiff AuswahlPhase
 let x = 11;
 let y = 11;
 const setShipPosition = document
@@ -98,7 +99,6 @@ const select = document
         direction = "se";
       }
     }
-
     shipsSelectorUi.createShipFrame(shipNumb);
     shipsSelectorUi.changeVariantBtn(direction);
     shipsSelectorUi.changeVariantDisplay(direction, shipNumb);
