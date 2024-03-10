@@ -4,6 +4,7 @@
 import "./styles.scss";
 
 import { Game } from "./Game.js";
+import { EndScreen } from "./view/endScreen.js";
 
 /* rausgenommen da nichtmehr gebraucht
 //Testschiffe;
@@ -23,7 +24,7 @@ gameboardKI.placeShipsCPU();
 */
 
 //GameHandler init
-const game = new Game();
+let game = new Game();
 
 //Schiff Auswahl Phase 1
 document
@@ -59,4 +60,20 @@ document.getElementById("boardKi").addEventListener("click", (e) => {
   game.playerShoot(e);
   //CPU shots
   game.cpuShoot();
+  if (!game.getGameEnd()) {
+    console.log("game end");
+    const endScreen = new EndScreen();
+    document.getElementById("newGameBtn").addEventListener("click", () => {
+      const newGame = new Game();
+      game = newGame;
+      endScreen.closeEndScreen();
+    });
+  }
 });
+
+//TODO Spiel beenden bei Sieg( Abfrage wer gewonnen) mit Screen neues Game
+//TODO Shipselector ausblenden wenn Phase 2
+//TODO Feedback bei Schiffplatzieren Position
+//TODO Kapitäne
+//TODO Abfangen CPU doppelt auf Feld schießen
+//

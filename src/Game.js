@@ -22,6 +22,7 @@ class Game {
     this.shipNumb = 1;
     this.direction = "h";
     this.phaseOne = true;
+    this.gameRuns = true;
   }
   handleShipCoordClick(e) {
     const key = e.target.id;
@@ -112,6 +113,7 @@ class Game {
       }
     }
     if (key === "Start") {
+      this.shipsSelectorUi.hideSideBar();
       this.handleStart();
     }
   }
@@ -119,7 +121,7 @@ class Game {
     this.gameboardKI.createShipsCPU(this.shipSelector.getChosenShips());
     this.gameboardKI.placeShipsCPU();
     //zum testen
-    //this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
+    this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
     this.phaseOne = false;
   }
   getPhaseOne() {
@@ -134,6 +136,10 @@ class Game {
       this.player.attackEnemy(targetCell[0], targetCell[1]);
     }
     this.gameBoardViewKi.updateViewBoard(this.gameboardKI.getGameBoard());
+    if (this.gameboardKI.checkWin()) {
+      console.log("player wins");
+      this.gameRuns = false;
+    }
   }
   cpuShoot() {
     this.gameboardPlayer.attackShip(
@@ -143,8 +149,14 @@ class Game {
     this.gameBoardViewPlayer.updateViewBoard(
       this.gameboardPlayer.getGameBoard()
     );
+    if (this.gameboardPlayer.checkWin()) {
+      console.log("CPU wins");
+      this.gameRuns = false;
+    }
   }
-  playGame() {}
+  getGameEnd() {
+    return this.gameRuns;
+  }
 }
 
 export { Game };

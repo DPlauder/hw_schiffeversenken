@@ -173,6 +173,9 @@ class ShipSelectorUi {
       }
     }
   }
+  hideSideBar() {
+    document.getElementById("sideBar").style.display = "none";
+  }
 }
 
 export { ShipSelectorUi };
