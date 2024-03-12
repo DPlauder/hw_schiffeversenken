@@ -26,6 +26,8 @@ class Game {
   }
   handleShipCoordClick(e) {
     const key = e.target.id;
+    this.gameBoardViewPlayer.removeClicked();
+    this.gameBoardViewPlayer.showClicked(key);
     if (key < 10) {
       (this.x = 0), (this.y = parseInt(key));
     } else {

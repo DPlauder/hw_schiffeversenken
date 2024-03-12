@@ -44,5 +44,14 @@ class GameboardView {
       }
     }
   };
+  showClicked(id) {
+    document.getElementById(id).classList.add("clickedCell");
+  }
+  removeClicked() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.classList.remove("clickedCell");
+    });
+  }
 }
 export { GameboardView };

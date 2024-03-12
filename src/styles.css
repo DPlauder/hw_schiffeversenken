@@ -125,4 +125,8 @@ body {
 }
 #endScreen #endMessage {
   color: white;
+}
+
+.clickedCell {
+  background-color: yellow;
 }/*# sourceMappingURL=styles.css.map */
