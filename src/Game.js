@@ -23,6 +23,7 @@ class Game {
     this.direction = "h";
     this.phaseOne = true;
     this.gameRuns = true;
+    this.round = 0;
   }
   handleShipCoordClick(e) {
     const key = e.target.id;
@@ -144,6 +145,7 @@ class Game {
     else {
       this.player.attackEnemy(x, y);
       this.gameBoardViewKi.updateViewBoard(this.gameboardKI.getGameBoard());
+      this.addRound();
       if (this.gameboardKI.checkWin()) {
         console.log("player wins");
         this.gameRuns = false;
@@ -166,6 +168,9 @@ class Game {
       }
     }
   }
+  addRound() {
+    this.round++;
+  }
   getGameEnd() {
     return this.gameRuns;
   }
@@ -185,6 +190,7 @@ class Game {
   //   this.direction = "h";
   //   this.phaseOne = true;
   //   this.gameRuns = true;
+  //   this.round = 0
   // }
 }
 

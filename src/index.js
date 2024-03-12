@@ -79,6 +79,5 @@ document.getElementById("boardKi").addEventListener("click", (e) => {
 });
 
 //TODO Spiel beenden bei Sieg( Abfrage wer gewonnen) mit Screen neues Game
-//TODO Feedback bei Schiffplatzieren Position
 //TODO Kapitäne!!!
 //

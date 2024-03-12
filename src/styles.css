@@ -55,6 +55,10 @@ body {
   cursor: pointer;
 }
 
+.clickedCell {
+  background-color: yellow;
+}
+
 .ship {
   background-color: black;
   width: 38px;
@@ -125,8 +129,4 @@ body {
 }
 #endScreen #endMessage {
   color: white;
-}
-
-.clickedCell {
-  background-color: yellow;
 }/*# sourceMappingURL=styles.css.map */
