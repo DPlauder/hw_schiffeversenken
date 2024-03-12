@@ -149,16 +149,19 @@ class Game {
     }
   }
   cpuShoot() {
-    this.gameboardPlayer.attackShip(
-      this.gameboardPlayer.getRandCoordinate(),
-      this.gameboardPlayer.getRandCoordinate()
-    );
-    this.gameBoardViewPlayer.updateViewBoard(
-      this.gameboardPlayer.getGameBoard()
-    );
-    if (this.gameboardPlayer.checkWin()) {
-      console.log("CPU wins");
-      this.gameRuns = false;
+    const x = this.gameboardPlayer.getRandCoordinate();
+    const y = this.gameboardPlayer.getRandCoordinate();
+
+    if (this.gameboardPlayer.attackShip(x, y) === false) this.cpuShoot();
+    else {
+      this.gameboardPlayer.attackShip(x, y);
+      this.gameBoardViewPlayer.updateViewBoard(
+        this.gameboardPlayer.getGameBoard()
+      );
+      if (this.gameboardPlayer.checkWin()) {
+        console.log("CPU wins");
+        this.gameRuns = false;
+      }
     }
   }
   getGameEnd() {
