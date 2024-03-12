@@ -130,15 +130,22 @@ class Game {
 
   playerShoot(e) {
     const targetCell = e.target.id;
+    let x = 0;
+    let y = 0;
     if (targetCell < 10) {
-      this.player.attackEnemy(0, targetCell);
+      y = targetCell;
     } else {
-      this.player.attackEnemy(targetCell[0], targetCell[1]);
+      x = targetCell[0];
+      y = targetCell[1];
     }
-    this.gameBoardViewKi.updateViewBoard(this.gameboardKI.getGameBoard());
-    if (this.gameboardKI.checkWin()) {
-      console.log("player wins");
-      this.gameRuns = false;
+    if (this.player.attackEnemy(x, y) === false) return false;
+    else {
+      this.player.attackEnemy(x, y);
+      this.gameBoardViewKi.updateViewBoard(this.gameboardKI.getGameBoard());
+      if (this.gameboardKI.checkWin()) {
+        console.log("player wins");
+        this.gameRuns = false;
+      }
     }
   }
   cpuShoot() {
@@ -157,6 +164,23 @@ class Game {
   getGameEnd() {
     return this.gameRuns;
   }
+  // resetGame() {
+  //   this.gameboardPlayer = new Gameboard();
+  //   this.gameboardKI = new Gameboard();
+  //   this.shipSelector = new ShipSelector();
+  //   this.player = new Player("Marko", this.gameboardKI);
+  //   this.gameBoardViewPlayer = new GameboardView("boardPlayer");
+  //   //frontend init
+  //   this.gameBoardViewKi = new GameboardView("boardKi");
+  //   this.shipsSelectorUi = new ShipSelectorUi();
+  //   this.shipsSelectorUi.createShipFrame(1);
+  //   this.x = 11;
+  //   this.y = 11;
+  //   this.shipNumb = 1;
+  //   this.direction = "h";
+  //   this.phaseOne = true;
+  //   this.gameRuns = true;
+  // }
 }
 
 export { Game };

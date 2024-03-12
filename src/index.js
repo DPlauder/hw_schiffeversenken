@@ -53,27 +53,33 @@ function handleClickBtns(e) {
 }
 
 // Game Phase 2
-//shoot on CPU Board
-
+// shots fired
+let playerTurn = true;
 document.getElementById("boardKi").addEventListener("click", (e) => {
   //player shots
-  game.playerShoot(e);
+  if (playerTurn) {
+    if (game.playerShoot(e) !== false) {
+      game.playerShoot(e);
+      playerTurn = false;
+    }
+  }
   //CPU shots
-  game.cpuShoot();
+  if (playerTurn === false) {
+    game.cpuShoot();
+    playerTurn = true;
+  }
   if (!game.getGameEnd()) {
     console.log("game end");
-    const endScreen = new EndScreen();
-    document.getElementById("newGameBtn").addEventListener("click", () => {
-      const newGame = new Game();
-      game = newGame;
-      endScreen.closeEndScreen();
-    });
+    // const endScreen = new EndScreen();
+    // document.getElementById("newGameBtn").addEventListener("click", () => {
+    //   game.resetGame();
+    //   endScreen.closeEndScreen();
+    // });
   }
 });
 
 //TODO Spiel beenden bei Sieg( Abfrage wer gewonnen) mit Screen neues Game
-//TODO Shipselector ausblenden wenn Phase 2
 //TODO Feedback bei Schiffplatzieren Position
-//TODO Kapitäne
-//TODO Abfangen CPU doppelt auf Feld schießen
+//TODO Kapitäne!!!
+//TODO Abfangen CPU doppelt auf Feld schießen!!!
 //

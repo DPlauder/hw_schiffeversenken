@@ -9,7 +9,11 @@ class Player {
   }
 
   attackEnemy(x, y) {
-    const result = this.enemyGameboard.attackShip(x, y);
+    if (this.enemyGameboard.attackShip(x, y) === false) {
+      return false;
+    } else {
+      const result = this.enemyGameboard.attackShip(x, y);
+    }
     //rausgenommen | passiert bereits in gameboard.attackShip
     /* 
     if (result === "Treffer") {
