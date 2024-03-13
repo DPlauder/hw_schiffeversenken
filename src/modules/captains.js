@@ -1,4 +1,4 @@
-class captains {
+class Captains {
   constructor() {}
   shotWilliam(x, y) {
     for (let i = 0; i < 10; i++) {
@@ -17,4 +17,4 @@ class captains {
   shotKatrin(x, y) {}
 }
 
-export { captains };
+export { Captains };

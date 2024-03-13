@@ -8,6 +8,7 @@ class ShipSelectorUi {
 
     const selector = document.createElement("div");
     selector.classList.add("shipSelector");
+    selector.id = "shipSelector";
     container.appendChild(selector);
 
     const btnContainer = document.createElement("div");
@@ -173,8 +174,8 @@ class ShipSelectorUi {
       }
     }
   }
-  hideSideBar() {
-    document.getElementById("sideBar").style.display = "none";
+  hideShipSelector() {
+    document.getElementById("shipSelector").style.display = "none";
   }
 }
 

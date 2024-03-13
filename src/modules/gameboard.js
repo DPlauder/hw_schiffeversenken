@@ -353,7 +353,6 @@ class Gameboard {
     return this.gameboard;
   }
   checkWin() {
-    console.log(this.ships);
     return this.ships.every((ship) => ship.isSunk === true);
   }
 }

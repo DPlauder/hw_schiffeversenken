@@ -12,26 +12,25 @@ body {
   margin: 0;
 }
 #app {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+  width: fit-content;
   height: 100%;
 }
-.sideBar {
-  height: 75%;
-  width: 35%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid #ccc;
-}
 
-#boardContainer {
+#boardContainers {
   margin: 20px;
-  width: 100%;
-  height: 75%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+.boardContainer {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   gap: 10px;
+  font-size: 2rem;
 }
 #boardKi,
 #boardPlayer {
@@ -67,49 +66,61 @@ body {
 .shipMiss {
   background-color: blue;
 }
-.shipSelector {
-  display: grid;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
 
-  .shipFrame {
-    display: flex;
-    padding: 10px;
-    justify-content: center;
+.sideBar {
+  min-height: 350px;
+  max-height: 350px;
+
+  margin-left: 20px;
+  margin-right: 20px;
+  border: 1px solid black;
+  .shipSelector {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
     align-items: center;
-    gap: 1px;
-
-    border: 1px solid black;
-    grid-auto-flow: column;
-    #shipDisplay {
-      width: 90%;
+    justify-items: center;
+    .shipFrame {
+      height: 100%;
       display: flex;
+      padding: 10px;
       justify-content: center;
       align-items: center;
       gap: 1px;
+      grid-auto-flow: column;
+      #shipDisplay {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1px;
+      }
     }
-  }
-  .btnContainer {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: auto;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+    .btnContainer {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10px;
+      height: 25px;
+      margin-bottom: 10px;
+      width: auto;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
 
-    button {
-      width: 100%;
+      button {
+        width: 100%;
+      }
     }
-  }
-  .shipPart {
-    background-color: black;
-    width: 38px;
-    height: 38px;
+    .shipPart {
+      background-color: black;
+      width: 38px;
+      height: 38px;
+    }
   }
 }
+
 #endScreen {
   width: 100%;
   height: 100%;
@@ -124,5 +135,24 @@ body {
   flex-direction: column;
   #endMessage {
     color: white;
+  }
+}
+#startScreen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  #startGameBtn {
+    margin-top: 20px;
+    font-size: large;
+    height: 50px;
+    border-radius: 10%;
   }
 }

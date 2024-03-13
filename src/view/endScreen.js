@@ -4,7 +4,7 @@ class EndScreen {
   }
 
   createEndScreen() {
-    const parent = document.getElementById("app");
+    const app = document.getElementById("app");
     const container = document.createElement("div");
     container.id = "endScreen";
 
@@ -16,7 +16,7 @@ class EndScreen {
     newGameBtn.innerText = "New Game";
     newGameBtn.id = "newGameBtn";
     container.appendChild(newGameBtn);
-    parent.appendChild(container);
+    app.appendChild(container);
   }
   closeEndScreen() {
     document.getElementById("endScreen").style.display = "none";

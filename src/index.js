@@ -5,6 +5,7 @@ import "./styles.scss";
 
 import { Game } from "./Game.js";
 import { EndScreen } from "./view/endScreen.js";
+import { StartScreen } from "./view/startScreen.js";
 
 /* rausgenommen da nichtmehr gebraucht
 //Testschiffe;
@@ -22,62 +23,72 @@ gameboardPlayer.placeShipsCPU();
 gameboardKI.createShipsCPU(ships);
 gameboardKI.placeShipsCPU();
 */
+const startScreen = new StartScreen();
 
-//GameHandler init
-let game = new Game();
+document.getElementById("startGameBtn").addEventListener("click", () => {
+  //GameHandler init
+  startScreen.hideStartScreen();
+  let game = new Game();
 
-//Schiff Auswahl Phase 1
-document
-  .getElementById("boardPlayer")
-  .addEventListener("click", handleClickCoords);
+  //Schiff Auswahl Phase 1
+  document
+    .getElementById("boardPlayer")
+    .addEventListener("click", handleClickCoords);
 
-function handleClickCoords(e) {
-  game.handleShipCoordClick(e);
-  if (!game.getPhaseOne()) {
-    document
-      .getElementById("boardPlayer")
-      .removeEventListener("click", handleClickCoords);
-  }
-}
-document
-  .getElementById("selectorBtnContainer")
-  .addEventListener("click", handleClickBtns);
-
-function handleClickBtns(e) {
-  game.handleBtnsClick(e);
-  if (!game.getPhaseOne()) {
-    document
-      .getElementById("selectorBtnContainer")
-      .removeEventListener("click", handleClickBtns);
-  }
-}
-
-// Game Phase 2
-// shots fired
-let playerTurn = true;
-document.getElementById("boardKi").addEventListener("click", (e) => {
-  //player shots
-  if (playerTurn) {
-    if (game.playerShoot(e) !== false) {
-      game.playerShoot(e);
-      playerTurn = false;
+  function handleClickCoords(e) {
+    game.handleShipCoordClick(e);
+    if (!game.getPhaseOne()) {
+      document
+        .getElementById("boardPlayer")
+        .removeEventListener("click", handleClickCoords);
     }
   }
-  //CPU shots
-  if (playerTurn === false) {
-    game.cpuShoot();
-    playerTurn = true;
+  document
+    .getElementById("selectorBtnContainer")
+    .addEventListener("click", handleClickBtns);
+
+  function handleClickBtns(e) {
+    game.handleBtnsClick(e);
+    if (!game.getPhaseOne()) {
+      document
+        .getElementById("selectorBtnContainer")
+        .removeEventListener("click", handleClickBtns);
+    }
   }
-  if (!game.getGameEnd()) {
-    console.log("game end");
-    // const endScreen = new EndScreen();
-    // document.getElementById("newGameBtn").addEventListener("click", () => {
-    //   game.resetGame();
-    //   endScreen.closeEndScreen();
-    // });
-  }
+
+  // Game Phase 2
+  // shots fired
+  let playerTurn = true;
+  document.getElementById("boardKi").addEventListener("click", (e) => {
+    //player shots
+    if (playerTurn) {
+      if (game.playerShoot(e) !== false) {
+        game.playerShoot(e);
+        playerTurn = false;
+      }
+    }
+    //CPU shots
+    if (playerTurn === false) {
+      game.cpuShoot();
+      playerTurn = true;
+    }
+    if (!game.getGameEnd()) {
+      console.log("game end");
+      // const endScreen = new EndScreen();
+      // document.getElementById("newGameBtn").addEventListener("click", () => {
+      //   game.resetGame();
+      //   endScreen.closeEndScreen();
+      // });
+    }
+  });
 });
 
 //TODO Spiel beenden bei Sieg( Abfrage wer gewonnen) mit Screen neues Game
 //TODO Kapitäne!!!
-//
+//TODO Spielfelder Namen hinuzfügen
+//TODO Ablauf Erklärung Schiffe platzieren
+//TODO Start Fenster Erklärung Spiel
+//TODO READM ME erstellen
+//Bonus
+//TODO Gesetzte Schiffe im Sidebar anzeigen lassen
+//TODO Versenkte Schiffe/Übrige Anzeigen

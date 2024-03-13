@@ -3,6 +3,7 @@ import { Player } from "./modules/player.js";
 import { GameboardView } from "./view/gameboardview.js";
 import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
 import { ShipSelector } from "./modules/shipSelector.js";
+import { Captains } from "./modules/captains.js";
 
 class Game {
   constructor() {
@@ -12,6 +13,7 @@ class Game {
     this.shipSelector = new ShipSelector();
     this.player = new Player("Marko", this.gameboardKI);
     this.gameBoardViewPlayer = new GameboardView("boardPlayer");
+    //this.captains = new Captains();
     //frontend init
     this.gameBoardViewKi = new GameboardView("boardKi");
     this.shipsSelectorUi = new ShipSelectorUi();
@@ -23,7 +25,7 @@ class Game {
     this.direction = "h";
     this.phaseOne = true;
     this.gameRuns = true;
-    this.round = 0;
+    this.round = 1;
   }
   handleShipCoordClick(e) {
     const key = e.target.id;
@@ -116,7 +118,7 @@ class Game {
       }
     }
     if (key === "Start") {
-      this.shipsSelectorUi.hideSideBar();
+      this.shipsSelectorUi.hideShipSelector();
       this.handleStart();
     }
   }
@@ -126,6 +128,7 @@ class Game {
     //zum testen
     this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
     this.phaseOne = false;
+    this.gameBoardViewPlayer.removeClicked();
   }
   getPhaseOne() {
     return this.phaseOne;
@@ -142,7 +145,9 @@ class Game {
       y = targetCell[1];
     }
     if (this.player.attackEnemy(x, y) === false) return false;
-    else {
+    /*     else if (this.round % 5 === 0) {
+      this.captains.shot();
+    } */ else {
       this.player.attackEnemy(x, y);
       this.gameBoardViewKi.updateViewBoard(this.gameboardKI.getGameBoard());
       this.addRound();

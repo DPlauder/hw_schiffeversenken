@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development --watch",
     "prod": "webpack --mode production --watch",
-    "start": "dev-server"
+    "start": "dev-server",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "css-loader": "^6.8.1",
     "dev-server": "^0.2.0",
+    "gh-pages": "^6.1.1",
     "node-sass": "^9.0.0",
     "sass-loader": "^13.3.2",
     "start": "^5.1.0",
