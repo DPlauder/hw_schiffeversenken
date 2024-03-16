@@ -24,9 +24,10 @@ gameboardKI.createShipsCPU(ships);
 gameboardKI.placeShipsCPU();
 */
 const startScreen = new StartScreen();
+const endScreen = new EndScreen();
+endScreen.closeEndScreen();
 
 document.getElementById("startGameBtn").addEventListener("click", () => {
-  //GameHandler init
   startScreen.hideStartScreen();
   let game = new Game();
 
@@ -49,45 +50,49 @@ document.getElementById("startGameBtn").addEventListener("click", () => {
 
   function handleClickBtns(e) {
     game.handleBtnsClick(e);
-    if (!game.getPhaseOne()) {
+    /* if (!game.getPhaseOne()) {
       document
         .getElementById("selectorBtnContainer")
         .removeEventListener("click", handleClickBtns);
-    }
+    } */
   }
 
   // Game Phase 2
   // shots fired
+
   let playerTurn = true;
   document.getElementById("boardKi").addEventListener("click", (e) => {
-    //player shots
-    if (playerTurn) {
-      if (game.playerShoot(e) !== false) {
-        game.playerShoot(e);
-        playerTurn = false;
+    if (!game.getPhaseOne()) {
+      //player shots
+      if (playerTurn) {
+        if (game.playerShoot(e) !== false) {
+          game.playerShoot(e);
+          playerTurn = false;
+        }
       }
-    }
-    //CPU shots
-    if (playerTurn === false) {
-      game.cpuShoot();
-      playerTurn = true;
-    }
-    if (!game.getGameEnd()) {
-      console.log("game end");
-      // const endScreen = new EndScreen();
-      // document.getElementById("newGameBtn").addEventListener("click", () => {
-      //   game.resetGame();
-      //   endScreen.closeEndScreen();
-      // });
+      //CPU shots
+      if (playerTurn === false) {
+        game.cpuShoot();
+        playerTurn = true;
+      }
+      if (!game.getGameRuns()) {
+        console.log("game end");
+        endScreen.openEndScreen();
+        document.getElementById("newGameBtn").addEventListener("click", () => {
+          game.resetGame();
+          endScreen.closeEndScreen();
+          document
+            .getElementById("selectorBtnContainer")
+            .addEventListener("click", handleClickBtns);
+        });
+      }
     }
   });
 });
 
 //TODO Spiel beenden bei Sieg( Abfrage wer gewonnen) mit Screen neues Game
 //TODO Kapitäne!!!
-//TODO Spielfelder Namen hinuzfügen
 //TODO Ablauf Erklärung Schiffe platzieren
-//TODO Start Fenster Erklärung Spiel
 //TODO READM ME erstellen
 //Bonus
 //TODO Gesetzte Schiffe im Sidebar anzeigen lassen

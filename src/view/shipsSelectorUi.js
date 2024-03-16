@@ -175,10 +175,15 @@ class ShipSelectorUi {
     }
   }
   hideShipSelector() {
-    document.getElementById("shipSelector").style.display = "none";
+    document.getElementById("sideBar").innerHTML = "";
+
+    //document.getElementById("shipSelector").innerHTML = "";
+  }
+  reset() {
+    document.getElementById("sideBar").innerHTML = "";
+    this.createShipselectorUi();
+    this.createShipFrame(1);
   }
 }
 
 export { ShipSelectorUi };
-
-//TODO ID's müssen mit +1 da 0 Platzhalter ist

@@ -13,10 +13,13 @@ class EndScreen {
     endMessage.id = "endMessage";
     container.appendChild(endMessage);
     const newGameBtn = document.createElement("button");
-    newGameBtn.innerText = "New Game";
+    newGameBtn.innerText = "Neues Spiel";
     newGameBtn.id = "newGameBtn";
     container.appendChild(newGameBtn);
     app.appendChild(container);
+  }
+  openEndScreen() {
+    document.getElementById("endScreen").style.display = "flex";
   }
   closeEndScreen() {
     document.getElementById("endScreen").style.display = "none";

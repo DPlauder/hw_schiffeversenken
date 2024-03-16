@@ -79,7 +79,6 @@ body {
   max-height: 350px;
   margin-left: 20px;
   margin-right: 20px;
-  border: 1px solid black;
 }
 .sideBar .shipSelector {
   display: grid;
@@ -89,6 +88,7 @@ body {
   margin-right: auto;
   align-items: center;
   justify-items: center;
+  border: 1px solid black;
 }
 .sideBar .shipSelector .shipFrame {
   height: 100%;

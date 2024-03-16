@@ -3,7 +3,7 @@ import { Player } from "./modules/player.js";
 import { GameboardView } from "./view/gameboardview.js";
 import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
 import { ShipSelector } from "./modules/shipSelector.js";
-import { Captains } from "./modules/captains.js";
+//import { Captains } from "./modules/captains.js";
 
 class Game {
   constructor() {
@@ -118,17 +118,19 @@ class Game {
       }
     }
     if (key === "Start") {
-      this.shipsSelectorUi.hideShipSelector();
       this.handleStart();
     }
   }
   handleStart() {
-    this.gameboardKI.createShipsCPU(this.shipSelector.getChosenShips());
-    this.gameboardKI.placeShipsCPU();
-    //zum testen
-    this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
-    this.phaseOne = false;
-    this.gameBoardViewPlayer.removeClicked();
+    if (this.shipSelector.getChosenShips().length > 0) {
+      this.gameboardKI.createShipsCPU(this.shipSelector.getChosenShips());
+      this.gameboardKI.placeShipsCPU();
+      //zum testen
+      this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
+      this.phaseOne = false;
+      this.gameBoardViewPlayer.removeClicked();
+      this.shipsSelectorUi.hideShipSelector();
+    } else console.log("Keine Schiffe ausgewählt");
   }
   getPhaseOne() {
     return this.phaseOne;
@@ -176,27 +178,25 @@ class Game {
   addRound() {
     this.round++;
   }
-  getGameEnd() {
+  getGameRuns() {
     return this.gameRuns;
   }
-  // resetGame() {
-  //   this.gameboardPlayer = new Gameboard();
-  //   this.gameboardKI = new Gameboard();
-  //   this.shipSelector = new ShipSelector();
-  //   this.player = new Player("Marko", this.gameboardKI);
-  //   this.gameBoardViewPlayer = new GameboardView("boardPlayer");
-  //   //frontend init
-  //   this.gameBoardViewKi = new GameboardView("boardKi");
-  //   this.shipsSelectorUi = new ShipSelectorUi();
-  //   this.shipsSelectorUi.createShipFrame(1);
-  //   this.x = 11;
-  //   this.y = 11;
-  //   this.shipNumb = 1;
-  //   this.direction = "h";
-  //   this.phaseOne = true;
-  //   this.gameRuns = true;
-  //   this.round = 0
-  // }
+  resetGame() {
+    this.gameboardPlayer = new Gameboard();
+    this.gameboardKI = new Gameboard();
+    this.shipSelector = new ShipSelector();
+    this.player = new Player("Marko", this.gameboardKI);
+    this.phaseOne = true;
+    this.gameRuns = true;
+    this.round = 1;
+    this.shipNumb = 1;
+    this.direction = "h";
+    // Reset frontend components
+    this.gameBoardViewPlayer.resetBoardContainer("boardPlayer");
+    this.gameBoardViewKi.resetBoardContainer("boardKi");
+    this.shipsSelectorUi.reset();
+    //this.shipsSelectorUi.createShipFrame(1); // Reset ship selector UI
+  }
 }
 
 export { Game };

@@ -2,13 +2,7 @@ class GameboardView {
   constructor(boardName) {
     this.parent = document.getElementById(boardName);
     this.createGameboardView();
-    this.createSidebar();
   }
-
-  createSidebar = () => {
-    const sideBar = document.getElementById("sideBar");
-    sideBar.classList.add("sideBar");
-  };
   createGameboardView = () => {
     //const container = document.getElementById(`${this.parent}`);
     for (let i = 0; i < 100; i++) {
@@ -52,6 +46,10 @@ class GameboardView {
     cells.forEach((cell) => {
       cell.classList.remove("clickedCell");
     });
+  }
+  resetBoardContainer(gameboardContainer) {
+    document.getElementById(`${gameboardContainer}`).innerHTML = "";
+    this.createGameboardView();
   }
 }
 export { GameboardView };
