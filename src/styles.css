@@ -161,4 +161,9 @@ body {
   font-size: large;
   height: 50px;
   border-radius: 10%;
+}
+
+.resultContainer {
+  height: 100px;
+  background-color: aqua;
 }/*# sourceMappingURL=styles.css.map */

@@ -9,7 +9,6 @@ class EndScreen {
     container.id = "endScreen";
 
     const endMessage = document.createElement("div");
-    endMessage.textContent = "Game End";
     endMessage.id = "endMessage";
     container.appendChild(endMessage);
     const newGameBtn = document.createElement("button");
@@ -18,8 +17,9 @@ class EndScreen {
     container.appendChild(newGameBtn);
     app.appendChild(container);
   }
-  openEndScreen() {
+  openEndScreen(text) {
     document.getElementById("endScreen").style.display = "flex";
+    document.getElementById("endMessage").innerText = `${text} hat gewonnen`;
   }
   closeEndScreen() {
     document.getElementById("endScreen").style.display = "none";

@@ -15,7 +15,6 @@ class Player {
       //Aufruf reicht, result wird nie benutzt
       //const result = this.enemyGameboard.attackShip(x, y);
       this.enemyGameboard.attackShip(x, y);
-      console.log(this.enemyGameboard);
     }
     //rausgenommen | passiert bereits in gameboard.attackShip
     /* 

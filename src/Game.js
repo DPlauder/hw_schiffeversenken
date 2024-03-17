@@ -3,6 +3,7 @@ import { Player } from "./modules/player.js";
 import { GameboardView } from "./view/gameboardview.js";
 import { ShipSelectorUi } from "./view/shipsSelectorUi.js";
 import { ShipSelector } from "./modules/shipSelector.js";
+import { ResultViewer } from "./view/resultViewer.js";
 //import { Captains } from "./modules/captains.js";
 
 class Game {
@@ -18,6 +19,7 @@ class Game {
     this.gameBoardViewKi = new GameboardView("boardKi");
     this.shipsSelectorUi = new ShipSelectorUi();
     this.shipsSelectorUi.createShipFrame(1);
+    this.resultViewer = new ResultViewer();
 
     this.x = 11;
     this.y = 11;
@@ -26,6 +28,7 @@ class Game {
     this.phaseOne = true;
     this.gameRuns = true;
     this.round = 1;
+    this.winner = null;
   }
   handleShipCoordClick(e) {
     const key = e.target.id;
@@ -112,9 +115,11 @@ class Game {
           );
         } else {
           console.log("cant place ship there");
+          alert("Schiff kann hier nicht platziert werden");
         }
       } else {
         console.log("too many ships");
+        alert("Maximal 30 Felder können mit Schiffen platziert werden");
       }
     }
     if (key === "Start") {
@@ -125,12 +130,16 @@ class Game {
     if (this.shipSelector.getChosenShips().length > 0) {
       this.gameboardKI.createShipsCPU(this.shipSelector.getChosenShips());
       this.gameboardKI.placeShipsCPU();
-      //zum testen
-      this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
+
+      //zum testen zeigt Schiffe CPU an
+      //this.gameBoardViewKi.showShips(this.gameboardKI.getGameBoard());
+
       this.phaseOne = false;
       this.gameBoardViewPlayer.removeClicked();
       this.shipsSelectorUi.hideShipSelector();
-    } else console.log("Keine Schiffe ausgewählt");
+      this.resultViewer.createResultContainer();
+      this.resultViewer.showResult("Schieße auf das Gegnerfeld");
+    } else alert("Keine Schiffe platziert!");
   }
   getPhaseOne() {
     return this.phaseOne;
@@ -146,15 +155,19 @@ class Game {
       x = targetCell[0];
       y = targetCell[1];
     }
-    if (this.player.attackEnemy(x, y) === false) return false;
-    /*     else if (this.round % 5 === 0) {
+
+    //console.log("result:", this.gameboardKI.attackShip(x, y));
+    if (this.player.attackEnemy(x, y) === false) {
+      return false;
+    } else {
+      /*     else if (this.round % 5 === 0) {
       this.captains.shot();
-    } */ else {
+    } */
       this.player.attackEnemy(x, y);
       this.gameBoardViewKi.updateViewBoard(this.gameboardKI.getGameBoard());
       this.addRound();
       if (this.gameboardKI.checkWin()) {
-        console.log("player wins");
+        this.winner = "Spieler";
         this.gameRuns = false;
       }
     }
@@ -170,7 +183,7 @@ class Game {
         this.gameboardPlayer.getGameBoard()
       );
       if (this.gameboardPlayer.checkWin()) {
-        console.log("CPU wins");
+        this.winner = "CPU";
         this.gameRuns = false;
       }
     }
@@ -180,6 +193,9 @@ class Game {
   }
   getGameRuns() {
     return this.gameRuns;
+  }
+  getWinner() {
+    return this.winner;
   }
   resetGame() {
     this.gameboardPlayer = new Gameboard();

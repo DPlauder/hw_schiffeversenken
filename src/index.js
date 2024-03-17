@@ -68,6 +68,8 @@ document.getElementById("startGameBtn").addEventListener("click", () => {
         if (game.playerShoot(e) !== false) {
           game.playerShoot(e);
           playerTurn = false;
+        } else {
+          console.log("doppel schuss");
         }
       }
       //CPU shots
@@ -76,8 +78,7 @@ document.getElementById("startGameBtn").addEventListener("click", () => {
         playerTurn = true;
       }
       if (!game.getGameRuns()) {
-        console.log("game end");
-        endScreen.openEndScreen();
+        endScreen.openEndScreen(game.getWinner());
         document.getElementById("newGameBtn").addEventListener("click", () => {
           game.resetGame();
           endScreen.closeEndScreen();
@@ -97,3 +98,9 @@ document.getElementById("startGameBtn").addEventListener("click", () => {
 //Bonus
 //TODO Gesetzte Schiffe im Sidebar anzeigen lassen
 //TODO Versenkte Schiffe/Übrige Anzeigen
+
+//FIXME
+// In der Index wird in der If Abfrage schon der Code ausgeführt, was er nicht sollte,
+// für Spielablauf kein Problem weil der Fehler abgefangen wird
+// ein großes Problem für die Anzeige weil jeder Schuss eigentlich doppelt ausgeführt wird
+// und so immer als Ergebniss rauskommt, dass auf das Feld schon geschossen wurde

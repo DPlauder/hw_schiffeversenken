@@ -13,7 +13,7 @@ class StartScreen {
 
     const anleitungMessage = document.createElement("div");
     anleitungMessage.innerText =
-      "Wähle zu Beginn deine Schiffe und ordne diese in dem du auf deine gewünschte Position im Feld klickst und dann mit place bestätigst";
+      "Wähle zu Beginn deine Schiffe(max. 30 Felder) und ordne diese in dem du auf deine gewünschte Position im Feld(Spieler) klickst und dann mit place bestätigst";
     container.appendChild(anleitungMessage);
 
     const startMessage = document.createElement("div");
